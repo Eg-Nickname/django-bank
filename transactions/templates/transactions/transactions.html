@@ -1,0 +1,281 @@
+{% extends 'main/base.html' %}
+
+{%block head %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'main/base.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'transactions/transactions.css' %}">
+<script src="{% static 'transactions/transactions.js' %}"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+{% endblock %}
+
+{% block content %}
+<div class="content">
+
+  <div class="popup" id="popup-1">
+    <div class="overlay" onclick="togglePopup()">
+      
+    </div>
+    <div class="content-popup">
+      <form method="post">{% csrf_token %}
+      <h1>Nowy Przelew</h1>
+      <!-- Form -->
+      {% for field in transaction_form %}
+              
+      <div class="input-box">
+          <i>{{field.label}}:</i>
+          <br>
+          <br>
+          {{field}}
+      </div>
+  
+      {% for error in transaction_form.field.errors %}
+          <p class="login-error">{{error}}</p>
+      {% endfor %}
+  {% endfor %}
+  
+  
+      {% if transaction_form.non_field_errors %}
+          <div class="">
+              <a>{{transaction_form.non_field_errors}}</a>
+          </div>
+      {% endif %}
+      <input type="submit" class="buton-przelew" value="Wyslij przelew" name="transaction">
+      </form>
+  
+      <div class="close-bnt" onclick="togglePopup()">&times;</div>
+    </div>
+  </div>
+  
+  <div class="popup" id="popup-2">
+    <div class="overlay" onclick="togglePopup2()">
+      
+    </div>
+    <div class="content-popup">
+  
+      <form method="post">{% csrf_token %}
+      <h1>Wypłać Pieniądze</h1>
+      <!-- Form -->
+      {% for field in withdraw_form %}
+              
+      <div class="input-box">
+          <i>{{field.label}}:</i>
+          <br>
+          <br>
+          {{field}}
+          {% if field.help_text %}
+            <div class="help-text">{{field.help_text}}</div>
+          {% endif %}
+      </div>
+  
+      {% for error in withdraw_form.field.errors %}
+          <p class="login-error">{{error}}</p>
+      {% endfor %}
+  {% endfor %}
+  
+  
+      {% if withdraw_form.non_field_errors %}
+          <div class="">
+              <a>{{withdraw_form.non_field_errors}}</a>
+          </div>
+      {% endif %}
+  
+      <input type="submit" class="buton-przelew" value="Wyplac pieniądze" name="withdraw">
+      </form>
+  
+      <div class="close-bnt" onclick="togglePopup2()">&times;</div>
+    </div>
+  </div>
+  
+  
+  
+  {% if messages %}
+    {% for message in messages %}
+        <div class="message" id="message_container"      >
+              <p>{{ message }}</p>
+              <a href="" class="del-msg">
+                &times;
+              </a>
+              <div class="outerContainer">
+                <div class="innerBar"></div>
+             </div>
+        </div>
+    {% endfor %}
+  {% endif %}
+  
+  
+  <!-- Message Javascrip -->
+  <script>
+  var message_ele = document.getElementById("message_container");
+  setTimeout(function(){ 
+     message_ele.style.display = "none"; 
+  }, 3000);
+  </script>
+  
+  <script>
+    $(function(){         
+       $('.innerBar').animate({ width: "0%" }, 3000);
+    });
+  </script>
+  
+  <!-- Dropdown jQuerry -->
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+  <script>
+      $(document).ready(function () {
+          $('#id_reciver_id').select2({
+              ajax: {
+                  url: '{% url 'transactions' %}',
+                  dataType: 'json',
+                  processResults: function (data) {
+                      return {
+                          results: $.map(data, function (item) {
+                              return {id: item.id, text: item.username};
+                          })
+                      };
+                  }
+              },
+              minimumInputLength: 3
+          });
+          
+      });
+  </script>
+  <script>
+    $(document).ready(function() {
+      $('#id_waluta').select2();
+  });
+  </script>
+  <script>
+    $(document).ready(function() {
+      $('#id_waluta2').select2();
+  });
+  </script>
+  <div class="wrapper">
+    <div class="info-container">
+      <div class="informacje">
+        <h1>Informacje dla {{request.user.username}}</h1>
+        <h2>Stan konta</h2> 
+        <div>
+          <button onclick="togglePopup()" class="buton-przelew nowy-przelew"><i class="fas fa-plus"></i>Nowy Przelew</button>
+        </div>
+        <div class="flexBlock buttongroup">
+          <button onclick="togglePopup2()" class="buton-przelew button-wyplata"><i class="fas fa-money-bill-wave"></i>Wypłata z konta</button>
+        </div>
+        <div class="informacje-inner-container"><img src="{% static 'transactions/images/flags/Flag_of_China.svg' %}" class="country-flag"><div class="waluta-kwota">Yuan:  {{request.user.cny}}</div></div>
+        <div class="informacje-inner-container"><img src="{% static 'transactions/images/flags/Flag_of_Soviet_Union.svg' %}" class="country-flag"><div class="waluta-kwota">Rubel: {{request.user.rub}}</div></div>
+        <div class="informacje-inner-container"><img src="{% static 'transactions/images/flags/Flag_of_Vatican_City.svg' %}" class="country-flag"><div class="waluta-kwota">Lira: {{request.user.lir}}</div></div>
+        <div class="informacje-inner-container"><img src="{% static 'transactions/images/flags/Flag_of_Chile.svg' %}" class="country-flag"><div class="waluta-kwota">Peso chilijskie: {{request.user.clp}}</div></div>
+      </div>
+
+      <img src="{% static 'transactions/images/money_transfer.png'%}" class="img-money-transfer">
+    </div>
+
+
+
+
+    
+    <div class="transactions">
+      <h1>Transactions</h1>
+      <table>
+        {% for transaction in sent_transactions %}
+        <tr>
+        <td><a href="{% url "inspect-transaction" transaction.transaction_id %}">Więcej Informacji</a></td>
+        {% if transaction.typ == 0 %}
+          {% if transaction.sender_id is not None %}
+          <td class="from"><a><bold>Od: </bold>{{transaction.sender_id}}</a></td>
+          {% else %}
+          <td class="from"><a><bold>Od: </bold>Użytkownik usunięty</a></td>
+          {% endif %}
+      
+          {% if transaction.reciver_id is not None %}
+          <td class="to"><a><bold>Do: </bold>{{transaction.reciver_id}}</a></td>
+          {% else %}
+          <td class="to"><a><bold>Do: </bold>Użytkownik usunięty</a></td>
+          {% endif %}
+        {% elif transaction.typ == 1 %}
+        <td class="from"><bold>Wpłata na konto</bold></td><td class="to"></td>
+        {% elif transaction.typ == 2 %}
+        <td class="from"><bold>Wypłata z konta</bold></td><td class="to"></td>
+        {% elif transaction.typ == 3 %}
+        <td class="from"><bold>Wymiana Walut</bold></td><td class="to"></td>         
+
+        {% endif %}
+    
+    
+        {% if transaction.sender_id == request.user %}
+          <td><a style="color: red;">-{{transaction.kwota}}</a></td>
+        {% else %}
+          <td><a style="color: rgb(0, 173, 0);">+{{transaction.kwota}}</a></td>
+        {% endif %}
+        <td><a>{{transaction.waluta}}</a></td>
+  
+  
+        {% if transaction.typ == 0 or 2 %}
+        <td class="title"><a>{{transaction.title}}</a></td>
+        {% else %}
+        <td></td>
+        {% endif %}
+        <td class="data"><a>{{transaction.data_transakcji}}</a></td>
+        </tr>
+        {% endfor %}
+      </table>
+    </div>
+  </div>  
+</div>
+
+{% if selected_transaction %}
+
+<div class="popup active" id="popup-3">
+  <div class="overlay" onclick="togglePopup3()">
+
+  </div>
+  <div class="content-popup popup-inspect">
+      {% if selected_transaction.typ == 0 %}
+        <h2>Od:</h2>
+        {% if selected_transaction.sender_id is not None %}
+        <a style="color: black;">{{selected_transaction.sender_id}}</a>
+        {% else %}
+        <a style="color: black;">Użytkownik usunięty</a>
+        {% endif %}
+
+        <h2>Do:</h2>
+        {% if selected_transaction.reciver_id is not None %}
+        <a style="color: black;">{{selected_transaction.reciver_id}}</a>
+        {% else %}
+        <a style="color: black;">Użytkownik usunięty</a>
+      {% endif %}
+
+      {% elif selected_transaction.typ == 1 %}
+      <h2 style="color: black;">Wpłata na konto</h2>
+      {% elif selected_transaction.typ == 2 %}
+      <h2 style="color: black;">Wypłata z konta</h2>
+      {% elif selected_transaction.typ == 3 %}
+      <h2 style="color: black;">Wymiana Walut</h2>    
+
+      {% endif %}
+
+      <h2>Kwota:</h2>
+      {% if selected_transaction.sender_id == request.user %}
+        <a style="color: red;">-{{selected_transaction.kwota}}</a>
+      {% else %}
+        <a style="color: rgb(0, 173, 0);">+{{selected_transaction.kwota}}</a>
+      {% endif %}
+      <a style="color: black;">{{selected_transaction.waluta}}</a>
+
+
+      {% if selected_transaction.typ == 0 %}
+      <h2>Tytuł: </h2>
+      <a style="color: black;">{{selected_transaction.title}}</a>
+      {% endif %}
+      <h2>Data:</h2>
+      <a style="color: black;">{{selected_transaction.data_transakcji}}</a>
+      <div class="close-bnt" onclick="togglePopup3()">&times;</div>
+    </div>
+  </div>
+
+</div>
+
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,145 @@
+{% extends 'main/base.html' %}
+
+{%block head %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'main/base.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'transactions/transactions.css' %}">
+<script src="{% static 'transactions/transactions.js' %}"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+{% endblock %}
+
+{% block content %}
+<div class="content">
+    <div class="info-container">
+        <div>
+            <button onclick="togglePopup()" class="buton-przelew nowy-przelew dodaj-srodki"><i class="fas fa-plus"></i>Dodaj środki</button>
+            <br>
+            <ul class="logowanie">
+                <li class="menu"><a class="" href="/admin/"><i class="fa-solid fa-arrow-right"></i>    django/admin/</a></li>
+            </ul>
+
+            
+
+        </div>
+    </div>
+
+    <div class="popup" id="popup-1">
+        <div class="overlay" onclick="togglePopup()">
+          
+        </div>
+        <div class="content-popup">
+          <form method="post">{% csrf_token %}
+          <h1>Dodaj środki</h1>
+          <!-- Form -->
+          {% for field in payment_form %}
+                  
+          <div class="input-box">
+              <i>{{field.label}}:</i>
+              <br>
+              <br>
+              {{field}}
+          </div>
+      
+          {% for error in payment_form.field.errors %}
+              <p class="login-error">{{error}}</p>
+          {% endfor %}
+      {% endfor %}
+      
+      
+          {% if payment_form.non_field_errors %}
+              <div class="">
+                  <a>{{payment_form.non_field_errors}}</a>
+              </div>
+          {% endif %}
+          <input type="submit" class="buton-przelew" value="Dodaj środki" name="payment">
+          </form>
+      
+          <div class="close-bnt" onclick="togglePopup()">&times;</div>
+        </div>
+    </div>
+
+    {% if messages %}
+    {% for message in messages %}
+        <div class="message" id="message_container"      >
+              <p>{{ message }}</p>
+              <a href="" class="del-msg">
+                &times;
+              </a>
+              <div class="outerContainer">
+                <div class="innerBar"></div>
+             </div>
+        </div>
+    {% endfor %}
+  {% endif %}
+  
+  
+    <!-- Message Javascrip -->
+    <script>
+    var message_ele = document.getElementById("message_container");
+    setTimeout(function(){ 
+        message_ele.style.display = "none"; 
+    }, 3000);
+    </script>
+    
+    <script>
+        $(function(){         
+        $('.innerBar').animate({ width: "0%" }, 3000);
+        });
+    </script>
+
+    <div class="transactions">
+        <h1>Wypłaty z konta</h1>
+        <table>
+          {% for transaction in withdraw_transactions %}
+          <tr>
+          <td><bold>{{transaction.transaction_id}}</bold></td>
+          <td class="from"><bold>Wypłata z konta</bold></td><td><a><bold></bold>{{transaction.sender_id}}</a></td></td>
+
+        
+          <td><a style="color: red;">{{transaction.kwota}}</a></td>
+
+          <td><a>{{transaction.waluta}}</a></td>
+    
+          {% if transaction.typ == 0 or 2 %}
+          <td class="title"><a>{{transaction.title}}</a></td>
+          {% else %}
+          <td></td>
+          {% endif %}
+          <td class="data"><a>{{transaction.data_transakcji}}</a></td>
+          </tr>
+          {% endfor %}
+        </table>
+      </div>
+</div>
+
+  <!-- Dropdown jQuerry -->
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+  <script>
+      $(document).ready(function () {
+          $('#id_reciver_id').select2({
+              ajax: {
+                  url: '{% url 'transactions' %}',
+                  dataType: 'json',
+                  processResults: function (data) {
+                      return {
+                          results: $.map(data, function (item) {
+                              return {id: item.id, text: item.username};
+                          })
+                      };
+                  }
+              },
+              minimumInputLength: 3
+          });
+          
+      });
+  </script>
+
+<script>
+    $(document).ready(function() {
+      $('#id_waluta').select2();
+  });
+</script>
+{% endblock %}

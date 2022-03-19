@@ -1,0 +1,364 @@
+.content{
+    position: absolute;
+
+
+    width: 100%;
+    height: auto;
+}
+
+.div-menu{
+   
+}
+/* Menu Ustawienia */
+.logowanie{
+    font-weight: bold;
+    color: whitesmoke;
+    height: 40px;
+    margin-right: 40px;
+}
+
+.logowanie a{
+    padding: 10px;
+    border:2px solid #7c63e0;
+    background: #7c63e0;
+    border-radius: 30px;
+}
+.logowanie a:hover{
+    color: #7c63e0;
+}
+.logowanie a:hover{
+    border: 3px solid #7c63e0;
+    background-color: white;
+    transition-duration: 250ms;
+}
+.logowanie li:hover{
+    transition-duration: 250ms;
+}
+
+
+
+/* Okno przelewu */
+.popup .overlay{
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,0.7);
+    z-index: 10;
+    display: none;
+}
+
+.popup .content-popup{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    background: #fff;
+    width: auto;
+    max-width: 96vw;
+    height: auto;
+    z-index: 15;
+    text-align: center;
+    padding: 20px;
+    box-sizing: border-box;
+    overflow-wrap: break-word;
+}
+
+.popup .close-bnt{
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    width: 30px;
+    height: 30px;
+    background: #222;
+    color: #fff;
+    font-size: 25px;
+    font-weight: 600;
+    line-height: 30px;
+    text-align: center;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.popup.actice .overlay {
+    display: block;
+}
+
+.popup.active .overlay {
+    display: block;
+}
+.popup.active .content-popup {
+    transition: all 300ms ease-out;
+    transform: translate(-50%, -50%) scale(1);
+    border-radius: 10px;
+}
+
+/* Formularz Przelewu */
+.input-box{
+    margin: 20px;
+}
+.input-box i{
+    font-size: 16px;
+    font-weight: 600;
+}
+#id_reciver_id{
+    width: 300px;
+}
+
+#id_title{
+    width: 300px;
+}
+#id_kwota,  #id_title{
+    padding: 0 20px;
+    width: 256px;
+    color: #444;
+    line-height: 28px;
+    border: 1px solid #aaa;
+    border-radius: 4px;
+}
+#id_waluta, #id_waluta2{
+    width: 300px;
+}
+.help-text{
+    max-width: 300px;
+    margin-top: 10px;
+    font-weight: 500;
+}
+
+
+.buton-przelew{
+    width: 150px;
+    height: 49px;
+    outline: none;
+    border: none;
+    border-radius:  14px;
+    background-color: #7c63e0;
+    color: white;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin: 10px 0;
+    transition: background-color 0.5s;
+    cursor: pointer;
+}
+.buton-przelew i{
+    margin-right: 7px;
+}
+.buton-przelew:hover{
+    background-color: white;
+    color: #7c63e0;
+    border: 2px solid #7c63e0;
+}
+.dodaj-srodki{
+    margin-left: 12px;
+}
+
+/* Message Style */
+.message{
+    font-size: 18px;
+    color: white;
+    font-weight: 700;
+    text-align: center;
+    width: 380px;
+    height: auto;
+    position: fixed;
+    top: 5%;
+    left: 50%;
+    transform: translate(-50%, -10%) scale(1);
+    background-color: #b19dec;
+    border-radius: 15px;
+    border: solid 3px #7c63e0;
+    padding-top: 10px;
+}
+.message p {
+    margin-bottom: 10px;
+}
+.del-msg{
+    position: absolute;
+    right: 8px;
+    top: 8px;
+    width: 20px;
+    height: 20px;
+    color: #fff;
+    font-size: 25px;
+    font-weight: 600;
+    line-height: 30px;
+    text-align: center;
+    cursor: pointer;
+}
+
+/* Progress bar */
+.innerBar {
+    background: #906ee6;
+    height: 8px;
+    width: 100%;
+ }
+ 
+ .outerContainer {
+    width: 340px;
+    margin: 5px 20px;
+    height: 8px;
+    border-radius: 5px;
+    overflow: hidden;
+    background: #d6cef4;
+ }
+
+
+/* Informacje */
+.info-container{
+    width: 1580px;
+    height: auto;
+    background: #FFF;
+    margin: 0 auto;
+    margin-bottom: 40px;
+    justify-content: space-between;
+    display: flex;
+}
+.informacje{
+    width: auto;
+    max-width: 40%;
+    min-width: 500px;
+    height: auto;
+    background: #FFF;
+    margin-bottom: 40px;
+    padding: 40px;
+
+    border-radius: 20px;
+    border: 5px solid #703cf3;
+    display: inline-block;
+}
+.informacje .informacje-inner-container{
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+}
+.waluta-kwota{
+    width: 80%;
+    line-height: 40px;
+}
+
+.country-flag{
+    height: 40px;
+    max-width: 60px;
+    width: auto;
+}
+.nowy-przelew{
+    font-size: 18px;
+    width: 200px;
+}
+.nowy-przelew i{
+    font-size: 18px;
+    font-weight: 9000;
+    margin-right: 10px;
+}
+
+.button-wyplata{
+    font-size: 18px;
+    width: 250px;
+    height: 49px;
+}
+.button-wyplata i{
+    font-size: 18px;
+    margin-right: 10px;
+}
+
+.img-money-transfer{
+    width: 55%;
+    height: auto;
+}
+
+
+
+
+ /* Transakcje */
+.transactions{
+
+    max-width: 1500px;
+    height: auto;
+    max-height: 70vh;
+    background: #FFF;
+    margin: 0 auto;
+
+    margin-bottom: 40px;
+    padding: 40px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    border-radius: 20px;
+    border: 5px solid  #703cf3;
+}
+.transactions h1{
+    width: 300px;
+    margin-top: 0px;
+}
+.transactions table{
+    justify-content: space-between;
+    width: 100%;
+    height: auto;
+}
+table, td, th{
+    border: 2px solid #d6cef4;  
+    border-collapse: collapse;
+}
+td{
+    max-width: 300px;
+    overflow-wrap: break-word;
+}
+table{
+    margin: 0 !important;
+}
+
+td{
+    padding: 5px 10px 5px;
+}
+
+.transactions a{
+    color: black;
+}
+bold{
+    font-weight: 600;
+}
+
+.popup-inspect{
+    min-width: 250px;
+}
+
+@media (max-width: 610px) {
+    .informacje{
+        min-width: 100px;
+        padding: 10px !important;
+    }
+    .informacje .informacje-inner-container{
+        padding: 5px !important;
+    }
+}
+@media (max-width: 1500px) {
+td.data{
+    display: none;
+}
+
+}
+
+@media (max-width: 1430px) {
+    td.title{
+        display: none;
+    }    
+}
+
+@media (max-width: 1100px) {
+    td.to{
+        display: none;
+    }    
+}
+
+@media (max-width: 777px) {
+    td.from{
+        display: none;
+    }    
+}
+
+@media (max-width: 450px) {
+    .informacje h1{
+        display: none;
+    }
+
+}

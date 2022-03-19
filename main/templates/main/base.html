@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    {% load static %}
+    <link rel="icon"  href="{% static 'main/images/logo_bank.png' %}">
+    {% block head %}
+    <link rel="stylesheet" type="text/css" href="{% static 'main/base.css' %}">
+    {% endblock %}
+
+    <title>{% block title %}Strona Główna{% endblock%}</title>
+</head>
+
+<body>
+
+
+    <div class="div-menu">
+        <div class="flexBlock center">
+            <ul class="flexBlock menu-li">
+                <li class="menu"><a href="/"><img src="{% static 'main/images/logo_bank.png' %}" alt="My image"></a></li>
+                <li class="menu-li menu"><a class="menu-text" href="/">Strona główna</a></li>
+                <li class="menu-li menu"><a class="menu-text" href="/saldo/">Saldo</a></li>
+                <li class="menu-li menu"><a class="menu-text" href="/wymiana_walut/">Wymiana walut</a></li>
+                {% if user.is_superuser %}
+                <li class="menu-li menu"><a class="menu-text" href="/admindashboard/">Admin Panel</a></li>
+                {% endif %}
+            </ul>
+
+            {% if user.is_authenticated %}
+            <ul class="flexBlock logowanie">
+                <li class="menu"><a href="/account/">Ustawienia</a></li>
+                <li class="menu"><a href="/logout/">Wyloguj się</a></li>
+            </ul>
+            {% else %}
+            <ul class="flexBlock logowanie">
+                <li class="menu"><a href="/login/">Zaloguj się</a></li>
+
+                <li class="menu"><a href="/register/">Zarejestruj się</a></li>
+            </ul>
+            {% endif %}
+        </div>
+
+
+
+            <button class="hamburger">
+                <img src="{% static 'main/images/logo_bank.png' %}" alt="My image">
+                 <i class="fas fa-bars"></i>
+            </button>
+
+        <div class="navigation">
+              <button class="close-button">
+                  <span class="close-button-box">
+                    <span class="close-button-item"></span>
+                </span>
+              </button>
+            <ul class="navigation__list">
+              <li class="menu-li navigation-item"><a class="menu-text" href="/">Strona główna</a></li>
+              <li class="menu-li navigation-item"><a class="menu-text" href="/saldo/">Saldo</a></li>
+              <li class="menu-li navigation-item"><a class="menu-text" href="/wymiana_walut/">Wymiana walut</a></li>
+              {% if user.is_superuser %}
+              <li class="menu-li navigation-item"><a class="menu-text" href="/admindashboard/">Admin Panel</a></li>
+              {% endif %}
+           
+              {% if user.is_authenticated %}
+                  <li class="menu-mobile"><a href="/account/">Ustawienia</a></li>
+                  <li class="menu-mobile"><a href="/logout/">Wyloguj się</a></li>
+  
+  
+              {% else %}
+                  <li class="menu-mobile"><a href="/login/">Zaloguj się</a></li>
+                  <li class="menu-mobile"><a href="/register/">Zarejestruj się</a></li>
+              {% endif %}
+            </ul>
+        </div>
+    </div>
+    <script>
+        const ham = document.querySelector('.hamburger');
+        const nav = document.querySelector('.navigation');
+        const closed = document.querySelector('.close-button');
+        const container = document.querySelector('.panel');
+        
+        const handleClick = () => {
+        // ham.classList.toggle('hamburger--active');
+        nav.classList.toggle('navigation--active');
+        
+        }
+        const handleClose = () => {
+        // ham.classList.toggle('hamburger--active');
+        nav.classList.remove('navigation--active');
+        
+        }
+        
+        ham.addEventListener('click', handleClick);
+        closed.addEventListener('click', handleClose);
+        container.addEventListener('click', handleClose);
+        </script>
+
+    {% block content%} {% endblock%}
+
+</body>
+</html>

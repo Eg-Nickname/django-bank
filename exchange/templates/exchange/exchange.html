@@ -1,0 +1,160 @@
+{% extends 'main/base.html' %}
+
+{%block head %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'main/base.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'transactions/transactions.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'exchange/exchange.css' %}">
+<script src="{% static 'exchange/exchange.js' %}"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+{% endblock %}
+
+{% block content %}
+<div class="content">
+
+    <div class="popup" id="popup-1">
+      <div class="overlay" onclick="togglePopup()">
+        
+      </div>
+      <div class="content-popup">
+        <form method="post">{% csrf_token %}
+        <h1>Wymień waluty</h1>
+        {% for field in exchange_form %}
+                
+        <div class="input-box">
+            <i>{{field.label}}:</i>
+            <br>
+            <br>
+            {{field}}
+        </div>
+    
+        {% for error in exchange_form.field.errors %}
+            <p class="login-error">{{error}}</p>
+        {% endfor %}
+        {% endfor %}
+    
+    
+        {% if exchange_form.non_field_errors %}
+            <div class="">
+                <a>{{exchange_form.non_field_errors}}</a>
+            </div>
+        {% endif %}
+        <input type="submit" class="buton-przelew" value="Wymień" name="new-exchange-listing">
+        </form>
+    
+        <div class="close-bnt" onclick="togglePopup()">&times;</div>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function() {
+          $('#id_exchange_from').select2();
+          $('#id_exchange_to').select2();
+      });
+      </script>
+       <script>
+        $(document).ready(function() {
+
+      });
+      </script>
+
+
+    <div class="exchange-listings-container">
+      <h2>Wymień waluty</h2> <button onclick="togglePopup()" class="buton-przelew"><i class="fas fa-plus"></i>Nowa Oferta Wymiany Walut</button>
+  
+      {% for exchange_listing in exchange_listings %}
+      <div class="exchange-listing">
+        <h2>Wymień</h2>
+        <h3>{{exchange_listing.amount_wanted}} {{exchange_listing.exchange_to}} Na {{exchange_listing.amount_owned}} {{exchange_listing.exchange_from}}</h3>
+        <h3>Ratio:</h3>
+        <h4>{{exchange_listing.ratio_to}} {{exchange_listing.exchange_to}} : {{exchange_listing.ratio_from}} {{exchange_listing.exchange_from}}</h4>
+        <h4 style="color: gray">Oferta od: {{exchange_listing.owner}}</h4>
+        <!-- <h4 style="color: gray">Id: {{exchange_listing.id}}</h4> -->
+
+        
+        {% if exchange_listing.owner == request.user %}
+        <a href="{% url "remove-listing" exchange_listing.id %}" class="bnt-del">Usuń ofertę wymiany</a>
+        {% else %}
+        <a href="{% url "exchange-money" exchange_listing.id %}" class="bnt-exchange">Wymień</a>
+        {% endif %}
+     </div>
+      {% endfor %}
+
+      {%if selected_exchange_listing %}
+
+      <div class="popup active" id="popup-2">
+        <div class="overlay" onclick="togglePopup1()">
+
+        </div>
+        <div class="content-popup">
+          <!-- <h4>{{selected_exchange_listing.id}}</h4> -->
+          <form method="post">{% csrf_token %}
+
+            {% for field in exchange_money_form %}
+                
+            <div class="input-box">
+                <i>{{field.label}}:</i>
+                <br>
+                <br>
+                {{field}}
+            </div>
+        
+            {% for error in exchange_money_form.field.errors %}
+                <p class="login-error">{{error}}</p>
+            {% endfor %}
+            {% endfor %}            
+          <input type="submit" class="buton-przelew" value="Wymień Pieniądze" name="exchange-money">
+          </form>
+          <script>
+            document.getElementById("id_amount_exchanged").step = Number({{selected_exchange_listing.ratio_to}})
+            document.getElementById("id_amount_exchanged").max = Number({{selected_exchange_listing.amount_wanted}}) 
+            document.getElementById("id_amount_exchanged").placeholder = "Kwota którą chcesz wymienić w " + "{{selected_exchange_listing.exchange_to}}"
+            document.getElementById("id_amount_recived").placeholder = "Kwota którą dostaniesz w " + "{{selected_exchange_listing.exchange_from}}"
+          </script>
+
+          <script>
+            document.getElementById("id_amount_exchanged").oninput = () => {
+            document.getElementById("id_amount_recived").value = ((document.getElementById("id_amount_exchanged").value)/{{selected_exchange_listing.ratio_to}}) * {{selected_exchange_listing.ratio_from}}
+            }
+          </script>
+
+          <div class="close-bnt" onclick="togglePopup1()">&times;</div>
+        </div>
+      </div>
+      {%endif%}
+    </div>
+</div>
+
+{% if messages %}
+  {% for message in messages %}
+      <div class="message" id="message_container"      >
+            <p>{{ message }}</p>
+            <a href="" class="del-msg">
+              &times;
+            </a>
+            <div class="outerContainer">
+              <div class="innerBar"></div>
+          </div>
+      </div>
+  {% endfor %}
+{% endif %}
+
+
+<!-- Message Javascrip -->
+<script>
+  var message_ele = document.getElementById("message_container");
+  setTimeout(function(){ 
+  message_ele.style.display = "none"; 
+  }, 3000);
+</script>
+
+<script>
+  $(function(){         
+    $('.innerBar').animate({ width: "0%" }, 3000);
+  });
+</script>
+
+{% endblock %}

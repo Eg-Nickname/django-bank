@@ -1,0 +1,67 @@
+
+#id_amount_owned, #id_amount_wanted{
+    padding: 0 20px;
+    width: 256px;
+    color: #444;
+    line-height: 28px;
+    border: 1px solid #aaa;
+    border-radius: 4px;
+}
+#id_exchange_from,  #id_exchange_to{
+    width: 300px;
+}
+
+/*Exchange listings */
+.exchange-listings-container{
+    margin: 0 auto;
+    width: 90%;
+}
+.exchange-listing{
+    width: auto !important;
+    padding: 20px;
+    margin-bottom: 15px;
+    width: 100%;
+    border-radius: 20px;
+    border: 5px solid #703cf3;
+}
+
+.bnt-del{
+    color: white;
+    background: rgb(160, 2, 2);
+    font-weight: bold;
+    padding: 10px;
+    border-radius: 15px;
+    margin-left: 20px;
+}
+
+.bnt-del:hover{
+    background: white;
+    color: rgb(160, 2, 2);
+    border: 3px solid rgb(160, 2, 2);
+    transition-duration: 250ms;
+}
+
+.bnt-exchange{
+    color: white;
+    background: #703cf3;
+    font-weight: bold;
+    padding: 10px;
+    border-radius: 15px;
+    margin-left: 20px;
+}
+
+.bnt-exchange:hover{
+    background: white;
+    color: #703cf3;
+    border: 3px solid #703cf3;
+    transition-duration: 250ms;
+}
+
+#id_amount_exchanged,  #id_amount_recived{
+    padding: 0 20px;
+    width: 241px;
+    color: #444;
+    line-height: 28px;
+    border: 1px solid #aaa;
+    border-radius: 4px;
+}
