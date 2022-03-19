@@ -1,2 +1,3 @@
 /.vscode
 /Django workspace.code-workspace
+/db.sqlite3
