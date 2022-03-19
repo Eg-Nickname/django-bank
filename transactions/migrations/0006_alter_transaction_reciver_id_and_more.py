@@ -7,7 +7,7 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('account', '0002_alter_account_discord_id_alter_account_email'),
+        # ('account', '0002_alter_account_discord_id_alter_account_email'),
         ('transactions', '0005_alter_transaction_reciver_id'),
     ]
 
