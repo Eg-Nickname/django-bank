@@ -12,5 +12,6 @@ Django workspace.code-workspace
 *.pot
 *.pyc
 __pycache__
+migrations/__pycache__
 db.sqlite3
 media
