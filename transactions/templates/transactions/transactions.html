@@ -124,7 +124,7 @@
   <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
   <script>
       $(document).ready(function () {
-          $('#id_reciver_id').select2({
+          $('#NewTransaction_reciver_id').select2({
               ajax: {
                   url: '{% url 'transactions' %}',
                   dataType: 'json',
@@ -143,7 +143,7 @@
   </script>
   <script>
     $(document).ready(function() {
-      $('#id_waluta').select2();
+      $('#NewTransaction_waluta').select2();
   });
   </script>
   <script>
@@ -151,6 +151,59 @@
       $('#id_waluta2').select2();
   });
   </script>
+  <script>
+      $(document).ready(function () {
+          $('#id_sender_id').select2({
+              ajax: {
+                  url: '{% url 'transactions' %}',
+                  dataType: 'json',
+                  processResults: function (data) {
+                      return {
+                          results: $.map(data, function (item) {
+                              return {id: item.id, text: item.username};
+                          })
+                      };
+                  }
+              },
+              minimumInputLength: 3
+          });
+          
+      });
+  </script>
+  <script>
+    $(document).ready(function () {
+        $('#id_reciver_id').select2({
+            ajax: {
+                url: '{% url 'transactions' %}',
+                dataType: 'json',
+                processResults: function (data) {
+                    return {
+                        results: $.map(data, function (item) {
+                            return {id: item.id, text: item.username};
+                        })
+                    };
+                }
+            },
+            minimumInputLength: 3
+        });
+        
+    });
+</script>
+
+<script>
+  $(document).ready(function() {
+    $('#id_waluta').select2();
+});
+</script>
+
+<script>
+  $(document).ready(function() {
+    $('#id_daterange').select2();
+});
+</script>
+
+
+
   <div class="wrapper">
     <div class="info-container">
       <div class="informacje">
@@ -176,9 +229,34 @@
 
     
     <div class="transactions">
-      <h1>Transactions</h1>
+      <h1>Tranzakcje</h1>
+      <div>          
+        <h3>Opcje filtrowania</h3> 
+        <label class="switch">
+          <input type="checkbox" onclick="toggleFilter();">
+          <span class="slider round"></span>
+        </label>
+        <div class="filter-options flexBlock" id="filter-options">
+          <form method="get">
+            {% for field in transactions_filter.form %}
+              
+            <div class="input-box filter-box">
+                <i>{{field.label}}:</i>
+                <br>
+                {{field}}
+            </div>
+        
+            {% for error in transaction_form.field.errors %}
+                <p class="login-error">{{error}}</p>
+            {% endfor %}
+        {% endfor %}
+            <button type="submit" class="buton-przelew nowy-przelew">Filtruj</button>
+          </form>
+        </div>
+
+      </div>
       <table>
-        {% for transaction in sent_transactions %}
+        {% for transaction in sent_transactions.qs %}
         <tr>
         <td><a href="{% url "inspect-transaction" transaction.transaction_id %}">Więcej Informacji</a></td>
         {% if transaction.typ == 0 %}

@@ -30,3 +30,7 @@ document.addEventListener('keydown', function(event){
             document.getElementById("popup-3").classList.toggle("active");
 	}
 });
+
+function toggleFilter(){
+    document.getElementById("filter-options").classList.toggle("filter-active");
+}

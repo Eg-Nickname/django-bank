@@ -6,6 +6,8 @@ from django.db.models import Q
 from transactions.models import Transaction
 from transactions.forms import NewTransaction, Withdraw
 
+from transactions.filters import TransacionFilter
+
 from django.contrib import messages
 
 
@@ -15,13 +17,18 @@ def transactions_viev(request):
     if not request.user.is_authenticated:
         return redirect("login")
 
-    sent_transactions = Transaction.objects.filter(Q(sender_id  = request.user.id) | Q(reciver_id = request.user.id)).order_by('data_transakcji')
-    form = NewTransaction()
+    sent_transactions = Transaction.objects.filter(Q(sender_id  = request.user.id) | Q(reciver_id = request.user.id)).order_by('-data_transakcji')
+    transactions_filter = TransacionFilter(request.GET, queryset=sent_transactions)
+    sent_transactions = transactions_filter
+    
+
+    form = NewTransaction(auto_id="NewTransaction_%s")
     withdraw_form = Withdraw()
     context = {
-            'sent_transactions' : reversed(sent_transactions),
+            'sent_transactions' : sent_transactions,
             'transaction_form' : form,
-            'withdraw_form' : withdraw_form
+            'withdraw_form' : withdraw_form,
+            'transactions_filter' : transactions_filter,
         }
     
     # Formularz przelewu wyszukiwanie konta 
