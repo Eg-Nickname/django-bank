@@ -1,5 +1,5 @@
 
-#id_amount_owned, #id_amount_wanted{
+#id_amount_owned, #id_amount_wanted, #id_amount_recived, #id_amount_exchanged{
     padding: 0 20px;
     width: 256px;
     color: #444;
@@ -7,6 +7,11 @@
     border: 1px solid #aaa;
     border-radius: 4px;
 }
+
+.button-oferawymiany{
+    width: auto;
+}
+
 #id_exchange_from,  #id_exchange_to{
     width: 300px;
 }

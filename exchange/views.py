@@ -111,8 +111,13 @@ def exchange_money_viev(request, id):
     if not request.user.is_authenticated:
         return redirect("login")
     exchange_listings = ExchangeListing.objects.all()
-    exchange_form = NewExchaneListing()
     exchange_money_form = ExchangeMoneyForm()
+
+    exchange_listings = ExchangeListing.objects.all()
+    exchangelisting_filter = ExchangeListingFilter(request.GET, queryset=exchange_listings)
+    exchange_listings = exchangelisting_filter
+
+    exchange_form = NewExchaneListing(auto_id="NewExchaneListing_%s")
 
     selected_exchange_listing = get_object_or_404(ExchangeListing, pk=id)
 
@@ -120,8 +125,10 @@ def exchange_money_viev(request, id):
         'exchange_listings' : exchange_listings,
         'exchange_form' : exchange_form,
         'exchange_money_form' : exchange_money_form,
+        'exchangelisting_filter' : exchangelisting_filter,
         'selected_exchange_listing' : selected_exchange_listing,
     }
+    
     if request.POST and 'new-exchange-listing' in request.POST:
         exchange_viev(request)
         return redirect("/wymiana_walut/")
