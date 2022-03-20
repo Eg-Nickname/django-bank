@@ -11,6 +11,15 @@
     width: 300px;
 }
 
+.exchange-info{
+    max-width: 450px;
+    border: 5px solid #703cf3;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    white-space: nowrap;
+    padding: 20px;
+}
+
 /*Exchange listings */
 .exchange-listings-container{
     margin: 0 auto;
@@ -57,7 +66,11 @@
     transition-duration: 250ms;
 }
 
-#id_amount_exchanged,  #id_amount_recived{
+#NewExchaneListing_exchange_from, #NewExchaneListing_exchange_to{
+    width: 280px;
+}
+
+#NewExchaneListing_amount_owned,  #NewExchaneListing_amount_wanted{
     padding: 0 20px;
     width: 241px;
     color: #444;

@@ -51,8 +51,8 @@
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
     <script>
         $(document).ready(function() {
-          $('#id_exchange_from').select2();
-          $('#id_exchange_to').select2();
+          $('#NewExchaneListing_exchange_from').select2();
+          $('#NewExchaneListing_exchange_to').select2();
       });
       </script>
        <script>
@@ -62,10 +62,43 @@
       </script>
 
 
+    <script>
+      $(document).ready(function() {
+        $('#id_exchange_from').select2();
+    });
+    </script>
+
+    <script>
+      $(document).ready(function() {
+        $('#id_exchange_to').select2();
+    });
+    </script>
+
+
     <div class="exchange-listings-container">
-      <h2>Wymień waluty</h2> <button onclick="togglePopup()" class="buton-przelew"><i class="fas fa-plus"></i>Nowa Oferta Wymiany Walut</button>
+      <div >
+        <div class="exchange-info">
+          <h2>Wymień waluty</h2> <button onclick="togglePopup()" class="buton-przelew"><i class="fas fa-plus"></i>Nowa Oferta Wymiany Walut</button>
+
+          <form method="get">
+            {% for field in exchangelisting_filter.form %}
+              
+              <div class="input-box filter-box">
+                  <i>{{field.label}}:</i>
+                  <br>
+                  {{field}}
+              </div>
+          
+              {% for error in transaction_form.field.errors %}
+                  <p class="login-error">{{error}}</p>
+              {% endfor %}
+            {% endfor %}
+            <button type="submit" class="buton-przelew nowy-przelew">Filtruj</button>
+          </form>
+        </div>
+      </div>
   
-      {% for exchange_listing in exchange_listings %}
+      {% for exchange_listing in exchange_listings.qs %}
       <div class="exchange-listing">
         <h2>Wymień</h2>
         <h3>{{exchange_listing.amount_wanted}} {{exchange_listing.exchange_to}} Na {{exchange_listing.amount_owned}} {{exchange_listing.exchange_from}}</h3>

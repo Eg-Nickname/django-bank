@@ -1,10 +1,14 @@
 from django.dispatch import receiver
 from django.shortcuts import get_object_or_404, render, redirect
+
 from exchange.forms import NewExchaneListing, ExchangeMoneyForm
 from exchange.models import ExchangeListing
+from exchange.filters import ExchangeListingFilter
 from exchange.nwd import NWD
 
 from transactions.models import Transaction
+
+
 
 from django.contrib import messages
 
@@ -12,10 +16,14 @@ def exchange_viev(request):
     if not request.user.is_authenticated:
         return redirect("login")
     exchange_listings = ExchangeListing.objects.all()
-    exchange_form = NewExchaneListing()
+    exchangelisting_filter = ExchangeListingFilter(request.GET, queryset=exchange_listings)
+    exchange_listings = exchangelisting_filter
+
+    exchange_form = NewExchaneListing(auto_id="NewExchaneListing_%s")
     context = {
         'exchange_listings' : exchange_listings,
-        'exchange_form' : exchange_form
+        'exchange_form' : exchange_form,
+        'exchangelisting_filter' : exchangelisting_filter,
     }
 
     if request.POST and 'new-exchange-listing' in request.POST:
