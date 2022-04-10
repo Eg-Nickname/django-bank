@@ -42,11 +42,14 @@ def transactions_viev(request):
     if request.POST and 'transaction' in request.POST:
         form = NewTransaction(request.POST)
         if form.is_valid():
-            trans            = form.save(commit=False)
-            trans.sender_id  = request.user
+            trans   = form.save(commit=False)
+            trans.sender_id = request.user
 
-            sender  = Account.objects.get(id=request.user.id)
-            reciver =  Account.objects.get(id=trans.reciver_id.id)
+            sender = Account.objects.get(id=request.user.id)
+            reciver = Account.objects.get(id=trans.reciver_id.id)
+
+
+
    
 
             if sender == reciver:
@@ -55,49 +58,16 @@ def transactions_viev(request):
                 if trans.kwota == 0:
                     messages.info(request, 'Kwota przelewu musi być większa niż 0')
                 else:
-                    if trans.waluta == "CNY":
-                        if trans.sender_id.cny-trans.kwota >= 0:
-                            sender.cny  -= trans.kwota
-                            reciver.cny += trans.kwota
-                            sender.save()
-                            reciver.save()                            
-                            trans = trans.save()
-                            return redirect('transactions')
-                        else:
-                            messages.info(request, 'Brak wystarczajacej liczby Yuanów.')
-                    
-                    elif trans.waluta == "RUB":
-                        if trans.sender_id.rub-trans.kwota >= 0:
-                            sender.rub  -= trans.kwota
-                            reciver.rub += trans.kwota
-                            sender.save()
-                            reciver.save()                            
-                            trans = trans.save()
-                            return redirect('transactions')
-                        else:
-                            messages.info(request, 'Brak wystarczajacej liczby Rubli.')
-
-                    elif trans.waluta == "LIR":
-                        if trans.sender_id.lir-trans.kwota >= 0:
-                            sender.lir  -= trans.kwota
-                            reciver.lir += trans.kwota
-                            sender.save()
-                            reciver.save()                            
-                            trans = trans.save()
-                            return redirect('transactions')
-                        else:
-                            messages.info(request, 'Brak wystarczajacej liczby Lir.')
-
-                    elif trans.waluta == "CLP":
-                        if trans.sender_id.clp-trans.kwota >= 0:
-                            sender.clp  -= trans.kwota
-                            reciver.clp += trans.kwota
-                            sender.save()
-                            reciver.save()
-                            trans = trans.save()
-                            return redirect('transactions')
-                        else:
-                            messages.info(request, 'Brak wystarczajacej liczby Pesos chilijskich.')
+                    if getattr(sender, trans.waluta.lower()) - trans.kwota >= 0:
+                        setattr(sender, trans.waluta.lower(), getattr(sender, trans.waluta.lower()) - trans.kwota)
+                        setattr(reciver, trans.waluta.lower(), getattr(reciver, trans.waluta.lower()) + trans.kwota)
+                        sender.save()
+                        reciver.save() 
+                        trans = trans.save()
+                        return redirect('transactions')
+                    else:
+                        messages.info(request, 'Brak wystarczajacej liczby środków.')
+ 
                             
 
     # Wypłacanie  
@@ -115,32 +85,11 @@ def transactions_viev(request):
             if withdraw.kwota == 0:
                     messages.info(request, 'Kwota wypłaty musi być większa niż 0')
             else:
-                if withdraw.waluta == "CNY":
-                    if withdraw.sender_id.cny-withdraw.kwota >= 0:
-                        sender.cny -= withdraw.kwota
-                        withdraw    = withdraw.save()                       
-                    else:
-                        messages.info(request, 'Brak wystarczajacej liczby Yuanów.')
-                elif withdraw.waluta == "RUB":
-                    if withdraw.sender_id.rub-withdraw.kwota >= 0:
-                        sender.rub -= withdraw.kwota
-                        withdraw    = withdraw.save()                        
-                    else:
-                        messages.info(request, 'Brak wystarczajacej liczby Rubli.')
-
-                elif withdraw.waluta == "LIR":
-                    if withdraw.sender_id.lir-withdraw.kwota >= 0:
-                        sender.lir -= withdraw.kwota
-                        withdraw    = withdraw.save()
-                    else:
-                        messages.info(request, 'Brak wystarczajacej liczby Lir.')
-
-                elif withdraw.waluta == "CLP":
-                    if withdraw.sender_id.clp-withdraw.kwota >= 0:
-                        sender.clp -= withdraw.kwota
-                        withdraw    = withdraw.save()
-                    else:
-                        messages.info(request, 'Brak wystarczajacej liczby Pesos chilijskich.')
+                if getattr(sender, withdraw.waluta.lower())-withdraw.kwota >= 0:
+                    setattr(sender, withdraw.waluta.lower(), getattr(sender, withdraw.waluta.lower()) - withdraw.kwota)
+                    withdraw = withdraw.save()                       
+                else:
+                    messages.info(request, 'Brak wystarczajacej liczby środków.')
 
                 sender.save()
                 return redirect('transactions')

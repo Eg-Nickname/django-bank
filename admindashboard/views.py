@@ -45,17 +45,7 @@ def admindashboard_viev(request):
             if payment.kwota == 0:
                     messages.info(request, 'Kwota wypłaty musi być większa niż 0')
             else:
-                if payment.waluta == "CNY":
-                    reciver.cny += payment.kwota
-
-                elif payment.waluta == "RUB":
-                    reciver.rub += payment.kwota                     
-
-                elif payment.waluta == "LIR":
-                    reciver.lir += payment.kwota
-
-                elif payment.waluta == "CLP":
-                    reciver.clp += payment.kwota
+                setattr(reciver, payment.waluta.lower(), getattr(reciver, payment.waluta.lower()) + payment.kwota)
                 
                 messages.info(request, f"Pomyślnie dodano {payment.kwota} {payment.waluta} użytkownikowi {payment.reciver_id.username}")
                 payment = payment.save()

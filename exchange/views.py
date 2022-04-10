@@ -44,43 +44,13 @@ def exchange_viev(request):
                 exchange_listing.ratio_from = (exchange_listing.amount_owned/nwd)
                 exchange_listing.ratio_to = (exchange_listing.amount_wanted/nwd)
 
-                if exchange_listing.exchange_from == "CNY":
-                    if exchange_creator.cny - exchange_listing.amount_owned >= 0:
-                        exchange_creator.cny -= exchange_listing.amount_owned
-                        exchange_creator.save()
-                        exchange_listing = exchange_listing.save()                        
-                        messages.info(request, 'Pomyślnie umieszczono oferte wymiany')
-                    else:
-                        messages.info(request, 'Brak wystarczajacej liczby Yuanów.')
-                elif exchange_listing.exchange_from == "RUB":
-                    if exchange_creator.rub - exchange_listing.amount_owned >= 0:
-                        exchange_creator.rub -= exchange_listing.amount_owned
-                        exchange_creator.save()
-                        exchange_listing = exchange_listing.save()                        
-                        messages.info(request, 'Pomyślnie umieszczono oferte wymiany')
-                    else:
-                        messages.info(request, 'Brak wystarczajacej liczby Rubli.')
-                elif exchange_listing.exchange_from == "LIR":
-                    if exchange_creator.lir - exchange_listing.amount_owned >= 0:
-                        exchange_creator.lir -= exchange_listing.amount_owned
-                        exchange_creator.save()
-                        exchange_listing = exchange_listing.save()                        
-                        messages.info(request, 'Pomyślnie umieszczono oferte wymiany')
-                    else:
-                        messages.info(request, 'Brak wystarczajacej liczby Lir.')
-
-                elif exchange_listing.exchange_from == "CLP":
-                    if exchange_creator.clp - exchange_listing.amount_owned >= 0:
-                        exchange_creator.clp -= exchange_listing.amount_owned
-                        exchange_creator.save()
-                        exchange_listing = exchange_listing.save()
-                        messages.info(request, 'Pomyślnie umieszczono oferte wymiany')
-                    else:
-                        messages.info(request, 'Brak wystarczajacej liczby Pesos chilijskich.')
-            
-
-
-
+                if getattr(exchange_creator, exchange_listing.exchange_from.lower()) - exchange_listing.amount_owned >= 0:
+                    setattr(exchange_creator, exchange_listing.exchange_from.lower(), getattr(exchange_creator, exchange_listing.exchange_from.lower()) - exchange_listing.amount_owned)
+                    exchange_creator.save()
+                    exchange_listing.save()
+                    messages.info(request, 'Pomyślnie umieszczono oferte wymiany')
+                else:
+                    messages.info(request, 'Brak wystarczajacej liczby środków.')
             return redirect('exchange')
     return render(request, 'exchange/exchange.html', context)
 
@@ -90,16 +60,9 @@ def exchange_viev(request):
 def remove_lising_viev(request, id):
     exchange_listing=get_object_or_404(ExchangeListing, pk=id)
     if request.user == exchange_listing.owner:
-        exchange_creator = exchange_listing.owner  
+        exchange_creator = exchange_listing.owner
 
-        if exchange_listing.exchange_from == "CNY":
-            exchange_creator.cny += exchange_listing.amount_owned
-        elif exchange_listing.exchange_from == "RUB":
-            exchange_creator.rub += exchange_listing.amount_owned
-        elif exchange_listing.exchange_from == "LIR":
-            exchange_creator.lir += exchange_listing.amount_owned
-        elif exchange_listing.exchange_from == "CLP":
-            exchange_creator.clp += exchange_listing.amount_owned
+        setattr(exchange_creator, exchange_listing.exchange_from.lower(), getattr(exchange_creator, exchange_listing.exchange_from.lower()) + exchange_listing.amount_owned)  
 
         exchange_creator.save()
         exchange_listing.delete()
@@ -140,42 +103,13 @@ def exchange_money_viev(request, id):
             amount_recived = cd.get('amount_recived')
 
             if selected_exchange_listing.amount_wanted - amount_exchanged >= 0:
-                if selected_exchange_listing.exchange_to == "CNY":
-                    if request.user.cny - amount_exchanged >= 0:
-                        request.user.cny -=  amount_exchanged
-                        selected_exchange_listing.owner.cny +=  amount_exchanged
-                    else:
-                        messages.info(request, 'Brak wystarczajacej liczby Yuanów.')
+                if getattr(request.user, selected_exchange_listing.exchange_to.lower()) - amount_exchanged >= 0:
+                    setattr(request.user, selected_exchange_listing.exchange_to.lower(), getattr(request.user, selected_exchange_listing.exchange_to.lower()) - amount_exchanged)
+                    setattr(request.user, selected_exchange_listing.exchange_from.lower(), getattr(request.user, selected_exchange_listing.exchange_from.lower()) + amount_recived)
+                    setattr(selected_exchange_listing.owner, selected_exchange_listing.exchange_to.lower(), getattr(selected_exchange_listing.owner, selected_exchange_listing.exchange_to.lower()) + amount_exchanged)
+                else:
+                    messages.info(request, 'Brak wystarczajacej liczby środków.')
 
-                elif selected_exchange_listing.exchange_to == "RUB":
-                    if request.user.rub - amount_exchanged >= 0:                
-                        request.user.rub -=  amount_exchanged
-                        selected_exchange_listing.owner.rub +=  amount_exchanged
-                    else:
-                        messages.info(request, 'Brak wystarczajacej liczby Rubli.')
-
-                elif selected_exchange_listing.exchange_to == "LIR":
-                    if request.user.lir - amount_exchanged >= 0:                   
-                        request.user.lir -=  amount_exchanged
-                        selected_exchange_listing.owner.lir +=  amount_exchanged     
-                    else:
-                        messages.info(request, 'Brak wystarczajacej liczby Lir.')
-
-                elif selected_exchange_listing.exchange_to == "CLP":
-                    if request.user.clp - amount_exchanged >= 0:   
-                        request.user.clp -=  amount_exchanged
-                        selected_exchange_listing.owner.clp +=  amount_exchanged
-                    else:
-                        messages.info(request, 'Brak wystarczajacej liczby Peso Chilijskich.')
-
-                if selected_exchange_listing.exchange_from == "CNY":
-                    request.user.cny += amount_recived
-                elif selected_exchange_listing.exchange_from == "RUB":
-                    request.user.rub += amount_recived
-                elif selected_exchange_listing.exchange_from == "LIR":
-                    request.user.lir += amount_recived
-                elif selected_exchange_listing.exchange_from == "CLP":
-                    request.user.clp += amount_recived
 
                 selected_exchange_listing.amount_wanted -= amount_exchanged
                 selected_exchange_listing.amount_owned -= amount_recived
