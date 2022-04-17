@@ -1,4 +1,3 @@
-from numbers import Rational
 from django.db import models
 from account.models import Account
 

@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'transactions.apps.TransactionsConfig',
     'exchange.apps.ExchangeConfig',
     'admindashboard.apps.AdmindashboardConfig',
+    'transaction_order.apps.TransactionOrderConfig',
 ]
 
 MIDDLEWARE = [

@@ -1,4 +1,3 @@
-from django.dispatch import receiver
 from django.shortcuts import get_object_or_404, render, redirect
 
 from exchange.forms import NewExchaneListing, ExchangeMoneyForm

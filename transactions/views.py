@@ -48,10 +48,6 @@ def transactions_viev(request):
             sender = Account.objects.get(id=request.user.id)
             reciver = Account.objects.get(id=trans.reciver_id.id)
 
-
-
-   
-
             if sender == reciver:
                 messages.info(request, 'Nie możesz wysłać przelewu do samego siebie.')
             else:
