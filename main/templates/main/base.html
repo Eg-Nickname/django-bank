@@ -24,6 +24,7 @@
                 <li class="menu-li menu"><a class="menu-text" href="/">Strona główna</a></li>
                 <li class="menu-li menu"><a class="menu-text" href="/saldo/">Saldo</a></li>
                 <li class="menu-li menu"><a class="menu-text" href="/wymiana_walut/">Wymiana walut</a></li>
+                <li class="menu-li menu"><a class="menu-text" href="/zlecenia_transakcji/">Zlecenia transakcji</a></li>
                 {% if user.is_superuser %}
                 <li class="menu-li menu"><a class="menu-text" href="/admindashboard/">Admin Panel</a></li>
                 {% endif %}
@@ -60,6 +61,8 @@
               <li class="menu-li navigation-item"><a class="menu-text" href="/">Strona główna</a></li>
               <li class="menu-li navigation-item"><a class="menu-text" href="/saldo/">Saldo</a></li>
               <li class="menu-li navigation-item"><a class="menu-text" href="/wymiana_walut/">Wymiana walut</a></li>
+              <li class="menu-li navigation-item"><a class="menu-text" href="/zlecenia_transakcji/">Zlecenie transakcji</a></li>
+
               {% if user.is_superuser %}
               <li class="menu-li navigation-item"><a class="menu-text" href="/admindashboard/">Admin Panel</a></li>
               {% endif %}

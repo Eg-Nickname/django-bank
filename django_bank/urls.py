@@ -38,6 +38,9 @@ from exchange.views import (
 from admindashboard.views import (
     admindashboard_viev,
 )
+from transaction_order.views import (
+    transaction_order_viev,
+)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -55,5 +58,6 @@ urlpatterns = [
     path('wymiana_walut/<int:id>', exchange_money_viev, name="exchange-money"),
     path('saldo/<int:id>', transactions_inspection_viev, name="inspect-transaction"),
     path('admindashboard/', admindashboard_viev, name="admindashboard"),
+    path('zlecenia_transakcji/', transaction_order_viev, name="zlecenia_transakcji"),
 
 ]

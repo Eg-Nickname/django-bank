@@ -24,7 +24,7 @@ class TransactionOrder(models.Model):
     amount                  = models.PositiveIntegerField(verbose_name="Kwota", blank=False, default=0)
     waluta                  = models.CharField(verbose_name="Waluta", max_length=32, unique=False, choices=WALUTY)
     last_transaction        = models.DateTimeField(verbose_name='Ostatnia tranzakcja', auto_now_add=True)
-    transaction_delay       = models.IntegerField(unique=False, blank=False, choices=TIME_DIFFERENCES)
+    transaction_delay       = models.IntegerField(unique=False, blank=False, choices=TIME_DIFFERENCES, verbose_name="Cykliczność")
     title                   = models.CharField(verbose_name="Tytuł przelewu", max_length=100, unique=False, default="Tytuł Przelewu")
 
     def save(self, *args, **kwargs):

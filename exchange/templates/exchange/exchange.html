@@ -49,30 +49,6 @@
       </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
-    <script>
-        $(document).ready(function() {
-          $('#NewExchaneListing_exchange_from').select2();
-          $('#NewExchaneListing_exchange_to').select2();
-      });
-      </script>
-       <script>
-        $(document).ready(function() {
-
-      });
-      </script>
-
-
-    <script>
-      $(document).ready(function() {
-        $('#id_exchange_from').select2();
-    });
-    </script>
-
-    <script>
-      $(document).ready(function() {
-        $('#id_exchange_to').select2();
-    });
-    </script>
 
 
     <div class="exchange-listings-container">
@@ -174,20 +150,4 @@
       </div>
   {% endfor %}
 {% endif %}
-
-
-<!-- Message Javascrip -->
-<script>
-  var message_ele = document.getElementById("message_container");
-  setTimeout(function(){ 
-  message_ele.style.display = "none"; 
-  }, 3000);
-</script>
-
-<script>
-  $(function(){         
-    $('.innerBar').animate({ width: "0%" }, 3000);
-  });
-</script>
-
 {% endblock %}

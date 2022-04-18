@@ -1,0 +1,25 @@
+#NewTransactionOrder_reciver_fk{
+    width: 300px;
+}
+
+#NewTransactionOrder_title{
+    width: 300px;
+}
+#NewTransactionOrder_amount,  #NewTransactionOrder_title{
+    padding: 0 20px;
+    width: 256px;
+    color: #444;
+    line-height: 28px;
+    border: 1px solid #aaa;
+    border-radius: 4px;
+}
+#NewTransactionOrder_waluta, #NewTransactionOrder_transaction_delay{
+    width: 300px;
+}
+.buton-zlecenie{
+    width: 230px !important;
+}
+
+#id_waluta, #id_transaction_delay{
+    width: 300px !important;
+}

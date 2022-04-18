@@ -105,21 +105,6 @@
     {% endfor %}
   {% endif %}
   
-  
-  <!-- Message Javascrip -->
-  <script>
-  var message_ele = document.getElementById("message_container");
-  setTimeout(function(){ 
-     message_ele.style.display = "none"; 
-  }, 3000);
-  </script>
-  
-  <script>
-    $(function(){         
-       $('.innerBar').animate({ width: "0%" }, 3000);
-    });
-  </script>
-  
   <!-- Dropdown jQuerry -->
   <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
   <script>
@@ -141,16 +126,7 @@
           
       });
   </script>
-  <script>
-    $(document).ready(function() {
-      $('#NewTransaction_waluta').select2();
-  });
-  </script>
-  <script>
-    $(document).ready(function() {
-      $('#id_waluta2').select2();
-  });
-  </script>
+
   <script>
       $(document).ready(function () {
           $('#id_sender_id').select2({
@@ -189,20 +165,6 @@
         
     });
 </script>
-
-<script>
-  $(document).ready(function() {
-    $('#id_waluta').select2();
-});
-</script>
-
-<script>
-  $(document).ready(function() {
-    $('#id_daterange').select2();
-});
-</script>
-
-
 
   <div class="wrapper">
     <div class="info-container">
@@ -355,5 +317,4 @@
 </div>
 
 {% endif %}
-
 {% endblock %}

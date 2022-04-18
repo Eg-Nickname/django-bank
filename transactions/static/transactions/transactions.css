@@ -1,3 +1,6 @@
+body{
+    overflow-x: hidden;
+}
 .content{
     position: absolute;
 
@@ -51,8 +54,8 @@
 
 .popup .content-popup{
     position: fixed;
-    top: 50%;
-    left: 50%;
+    top: 50vh;
+    left: 50vw;
     transform: translate(-50%, -50%) scale(0);
     background: #fff;
     width: auto;
@@ -226,7 +229,7 @@
 
 /* Informacje */
 .info-container{
-    width: 1580px;
+    max-width: 1580px;
     height: auto;
     background: #FFF;
     margin: 0 auto;
@@ -367,8 +370,7 @@
   .slider.round:before {
     border-radius: 50%;
   }
-
-
+  
  /* Transakcje */
 .transactions{
 
@@ -432,6 +434,9 @@ bold{
 }
 @media (max-width: 1500px) {
 td.data{
+    display: none;
+}
+.img-money-transfer{
     display: none;
 }
 

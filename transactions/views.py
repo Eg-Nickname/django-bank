@@ -101,15 +101,19 @@ def transactions_inspection_viev(request, id):
         transactions_viev(request)
         return redirect("/saldo/")  
     else:
+
         transaction = Transaction.objects.get(pk=id)
-        sent_transactions = Transaction.objects.filter(Q(sender_id  = request.user.id) | Q(reciver_id = request.user.id)).order_by('data_transakcji')
-        form = NewTransaction()
+        sent_transactions = Transaction.objects.filter(Q(sender_id  = request.user.id) | Q(reciver_id = request.user.id)).order_by('-data_transakcji')
+        transactions_filter = TransacionFilter(request.GET, queryset=sent_transactions)
+        sent_transactions = transactions_filter
+        form = NewTransaction(auto_id="NewTransaction_%s")
         withdraw_form = Withdraw()
-    
+
         context = {
-            'selected_transaction' : transaction,
-            'sent_transactions' : reversed(sent_transactions),
-            'transaction_form' : form,
-            'withdraw_form' : withdraw_form
-        }
+                'selected_transaction' : transaction,
+                'sent_transactions' : sent_transactions,
+                'transaction_form' : form,
+                'withdraw_form' : withdraw_form,
+                'transactions_filter' : transactions_filter,
+            }
         return render(request, 'transactions/transactions.html', context)

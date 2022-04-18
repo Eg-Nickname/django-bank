@@ -8,6 +8,9 @@
 Django workspace.code-workspace
 venv/*
 
+/venv/
+/.vscode/
+
 # Django #
 *.log
 *.pot

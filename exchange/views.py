@@ -7,8 +7,6 @@ from exchange.nwd import NWD
 
 from transactions.models import Transaction
 
-
-
 from django.contrib import messages
 
 def exchange_viev(request):

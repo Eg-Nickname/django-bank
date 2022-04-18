@@ -14,3 +14,21 @@ document.addEventListener('keydown', function(event){
             document.getElementById("popup-2").classList.toggle("active");
 	}
 });
+
+$(document).ready(function() {
+    $('#NewExchaneListing_exchange_from').select2();
+    $('#NewExchaneListing_exchange_to').select2();
+    $('#id_exchange_from').select2();
+    $('#id_exchange_to').select2();
+});
+
+$(function(){         
+    var message_ele = document.getElementById("message_container");
+    setTimeout(function(){ 
+    message_ele.style.display = "none"; 
+    }, 3000);
+  });
+
+$(function(){         
+    $('.innerBar').animate({ width: "0%" }, 3000);
+  });
