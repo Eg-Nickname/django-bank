@@ -96,7 +96,7 @@
       </label>
 
 
-      <div class="filter-options flexBlock filter-active" id="filter-options">
+      <div class="filter-options flexBlock" id="filter-options">
         <form method="get">
           {% for field in transaction_orders_filter.form %}
             
@@ -123,6 +123,7 @@
             <td>{{transaction_order.transaction_delay}} dni</td>
             <td>{{transaction_order.title}}</td>
             <td>{{transaction_order.last_transaction}}</td>
+            <td><a href="{% url "remove_zlecenia_transakcji" transaction_order.transaction_order_id %}" class="bnt-del" style="color: red;"><bold>Usuń zlecenie transakcji</bold></a></td>
         </tr>
         {% endfor %}
     </table>

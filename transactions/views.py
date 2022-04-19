@@ -1,5 +1,5 @@
 from django.http import JsonResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404, render, redirect
 from account.models import Account
 from django.db.models import Q
 
@@ -117,3 +117,11 @@ def transactions_inspection_viev(request, id):
                 'transactions_filter' : transactions_filter,
             }
         return render(request, 'transactions/transactions.html', context)
+
+def remove_transaction_order_viev(request, id):
+    transaction_order=get_object_or_404(ExchangeListing, pk=id)
+    if request.user == transaction_order.owner:
+        transaction_order.delete()
+        return redirect("/zlecenia_transakcji/")
+    else:
+        return redirect("/")

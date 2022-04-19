@@ -20,6 +20,6 @@
     width: 230px !important;
 }
 
-#id_waluta, #id_transaction_delay{
+#id_waluta, #id_transaction_delay, #id_reciver_fk{
     width: 300px !important;
 }

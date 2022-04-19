@@ -40,12 +40,12 @@ from admindashboard.views import (
 )
 from transaction_order.views import (
     transaction_order_viev,
+    remove_transaction_order_viev,
 )
 
 urlpatterns = [
     path('admin/', admin.site.urls),
 
-     #My urlpatterns
     path('', include("main.urls")),
     path('register/', registration_viev, name="register"),
     path('logout/', logout_viev, name="logout"),
@@ -59,5 +59,5 @@ urlpatterns = [
     path('saldo/<int:id>', transactions_inspection_viev, name="inspect-transaction"),
     path('admindashboard/', admindashboard_viev, name="admindashboard"),
     path('zlecenia_transakcji/', transaction_order_viev, name="zlecenia_transakcji"),
-
+    path('zlecenia_transakcji/<int:id>', remove_transaction_order_viev, name="remove_zlecenia_transakcji"),
 ]

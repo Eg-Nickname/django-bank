@@ -1,5 +1,5 @@
 from django.http import JsonResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from account.models import Account
 from django.db.models import Q
 
@@ -52,5 +52,14 @@ def transaction_order_viev(request):
                     messages.info(request, 'Kwota przelewu musi być większa niż 0')
                 else:
                     trans = trans.save()
-                    return redirect('transactions')
+                    return redirect('zlecenia_transakcji')
     return render(request, 'transaction_order/transaction_order.html', context)
+
+
+def remove_transaction_order_viev(request, id):
+    transaction_order=get_object_or_404(TransactionOrder, pk=id)
+    if request.user == transaction_order.sender_fk:
+        transaction_order.delete()
+        return redirect("/zlecenia_transakcji/")
+    else:
+        return redirect("/")
