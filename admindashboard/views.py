@@ -43,11 +43,11 @@ def admindashboard_viev(request):
             payment.reciver_id = reciver
             payment.typ = 1
             if payment.kwota == 0:
-                    messages.info(request, 'Kwota wypłaty musi być większa niż 0')
+                    messages.warning(request, 'Kwota wpłaty musi być większa niż 0')
             else:
                 setattr(reciver, payment.waluta.lower(), getattr(reciver, payment.waluta.lower()) + payment.kwota)
                 
-                messages.info(request, f"Pomyślnie dodano {payment.kwota} {payment.waluta} użytkownikowi {payment.reciver_id.username}")
+                messages.success(request, f"Pomyślnie dodano {payment.kwota} {payment.waluta} użytkownikowi {payment.reciver_id.username}")
                 payment = payment.save()
             
                 reciver.save()
