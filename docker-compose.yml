@@ -1,6 +1,6 @@
 version: "3.9"
 services:
-  app:
+  bank:
     build: .
     volumes:
       - .:/django-bank
@@ -9,3 +9,17 @@ services:
     image: app:django-bank
     container_name: django_bank_container
     command: python3 manage.py runserver 0.0.0.0:8000
+    depends_on:
+      - db
+  db:
+    image: postgres
+    volumes:
+      - pgdb:/var/lib/postresql/data
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    container_name: postgres_db_container
+
+volumes:
+  pgdb:

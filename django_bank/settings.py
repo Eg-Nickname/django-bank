@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-p+e(we(e45tt8px9=-j4(&1e5bjy$f!w=eww7)*@9-z$^ipf1y
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.0.20', '127.0.0.1', '193.42.240.128']
+ALLOWED_HOSTS = ['192.168.0.20', '127.0.0.1', 'localhost', '193.42.240.128']
 
 
 # Application definition
@@ -85,13 +85,23 @@ WSGI_APPLICATION = 'django_bank.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
+        'HOST': 'db',
+        'PORT': 5432,
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
