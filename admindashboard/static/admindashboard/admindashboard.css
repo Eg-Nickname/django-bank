@@ -54,11 +54,20 @@
 body{
     background-color: var(--neutral-100);
     overflow-x: hidden;
+    font-size: 16px;
+    color: var(--neutral-600);
+    overflow-wrap: break-word !important;
 }
-/* Message */
+.content{
+    display: grid;
+    grid-template-columns: minmax(0, min-content) 1fr;
+    row-gap: 24px;
+    column-gap: 24px;
+}
+
+/* Messages */
 .message{
     position: fixed;
-    /* display: flex; */
     align-items: center;
     z-index: 10;
     margin: 0 32px 32px 0;
@@ -68,7 +77,9 @@ body{
     width: 600px;
     max-width: 600px;
     padding: 16px;
+    border-radius: 4px;
 }
+
 .message .msg-top{
     display: flex;
 }
@@ -105,6 +116,23 @@ body{
 }
 
 
+.link-container{
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 1;
+
+    margin-left: 30px;
+    height: auto;
+    padding: 20px;
+    width: 512px;
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+    border: 1px solid var(--neutral-100);
+    background-color: var(--neutral-000);
+    border-radius: 8px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.08);
+}
 
 /* Link acting like button */
 .link-button{
@@ -123,10 +151,29 @@ body{
     background-color: var(--primary-pressed);
 }
 
+/* Info */
+.info-container{
+    grid-column-start: 2;
+    grid-column-end: 3;
+    grid-row-start: 1;
+    grid-row-end: 3;
 
+    padding: 20px;
+    width: auto;
+    height: auto;
+    border: 1px solid var(--neutral-100);
+    background-color: var(--neutral-000);
+    border-radius: 8px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.08);
+}
 
+/* Forms */
 .addmoney-container{
-    margin: 30px;
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 2;
+
+    margin-left: 30px;
     padding: 20px;
     width: 512px;
     border: 1px solid var(--neutral-100);
@@ -135,7 +182,6 @@ body{
     box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.08);
 }
 
-/* Forms */
 h1{
     font-size: 28px;
     color: var(--neutral-800);
@@ -224,7 +270,10 @@ option:hover{
 
 /* Tabela */
 .withdraws-container{
-    margin: 30px;
+    grid-column-start: 1;
+    grid-column-end: end;
+    grid-row-start: 3;
+    margin: 0 30px;
     padding: 20px;
     max-width: 96vw;
     border: 1px solid var(--neutral-100);
@@ -233,26 +282,24 @@ option:hover{
     border-radius: 8px;
     box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.08);
 }
-
-table, td, th{
-    border-right: 2px solid var(--neutral-100);
-    border-collapse: collapse;
+.withdraws-wrapper{
+    display: grid;
+    grid-template-columns: minmax(0, min-content) 120px minmax(0, 1fr) minmax(0, min-content) minmax(0, min-content) minmax(0, 3fr) minmax(0, min-content);
+    grid-auto-rows: minmax(50px auto);
+    row-gap: 16px;
+    column-gap: 8px;
 }
-th{
+.withdraws-wrapper .collumn-name{
+    font-size: 18px;
     color: var(--neutral-700);
-    border-bottom: 2px solid var(--neutral-100);
-    padding: 8px;
-}
-td{
-    max-width: fit-content;
-    padding: 5px 10px 5px;
+    font-weight: 600;
 }
 
-td a{
-    color: var(--neutral-600);
+.withdraws-wrapper div{
+    padding: 6px;
 }
-td.title{
-    max-width: 50vw;
+
+div.title{
     overflow-wrap: break-word;
 }
 
@@ -262,7 +309,8 @@ td.title{
     justify-content: space-between;
     align-items: center;
     padding: 6px;
-    width: auto;
+    width: 100px;
+    height: 16px;
     border-radius: 32px;
     color: var(--success-main) !important;
     border: 2px solid var(--success-main) !important;
@@ -279,7 +327,8 @@ td.title{
     justify-content: space-between;
     align-items: center;
     padding: 6px;
-    width: auto;
+    width: 90px;
+    height: 16px;
     border-radius: 32px;
     color: var(--warning-main) !important;
     border: 2px solid var(--warning-main) !important;

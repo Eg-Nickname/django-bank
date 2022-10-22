@@ -31,7 +31,7 @@ def admindashboard_viev(request):
         reciver_id = Account.objects.all().filter(username__icontains=term)
         return JsonResponse(list(reciver_id.values()), safe=False)    
 
-        # Wypłacanie  
+    # Wypłacanie  
     if request.POST and 'payment' in request.POST:
         payment_form = Payment(request.POST)
  
@@ -52,7 +52,8 @@ def admindashboard_viev(request):
             
                 reciver.save()
                 return redirect('admindashboard')
-
+        else:
+            messages.error(request, "Coś poszło nie tak 🤨")
     return render(request, 'admindashboard/admindashboard.html', context)
 
 

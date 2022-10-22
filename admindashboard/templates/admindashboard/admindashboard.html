@@ -16,52 +16,15 @@
 {% block content %}
 <div class="content">
 
-    <div class="info-container">
-        <div>
+    <div class="link-container">
             {% comment %} <button onclick="togglePopup()" class="add-balance"><i class="fas fa-plus"></i>Dodaj środki</button> {% endcomment %}
-            <br>
             <a class="link-button" href="/admin/">django/admin/ <i class="fa-solid fa-arrow-right"></i></a>
-        </div>
+            <a class="link-button" href="/admin/">pgadmin <i class="fa-solid fa-arrow-right"></i></a>
     </div>
 
-    {% comment %} <div class="popup" id="popup-1">
-        <div class="overlay" onclick="togglePopup()"></div>
-        <div class="content-popup">
-          <form method="post">{% csrf_token %}
-          <h1>Dodaj środki</h1>
-          <!-- Form -->
-            {% for field in payment_form %}
-                  
-            <div class="input-box">
-                <i>{{field.label}}:</i>
-                <br>
-                <br>
-                {{field}}
-            </div>
-      
-                {% for error in payment_form.field.errors %}
-                    <p class="login-error">{{error}}</p>
-                {% endfor %}
-            {% endfor %}
-      
-      
-          {% if payment_form.non_field_errors %}
-              <div class="">
-                  <a>{{payment_form.non_field_errors}}</a>
-              </div>
-          {% endif %}
-          <input type="submit" class="buton-przelew" value="Dodaj środki" name="payment">
-          </form>
-      
-        <div class="close-bnt" onclick="togglePopup()">&times;</div>
-        </div>
-    </div> {% endcomment %}
-
-
 <div class="addmoney-container">
-    <form method="post">{% csrf_token %}
-        <h1>Dodaj środki</h1>
-        <!-- Form -->
+    <h1>Dodaj środki</h1>
+    <form method="post">{% csrf_token %}        <!-- Form -->
         {% for field in payment_form %}
             <div class="input-box">
                 <i>{{field.label}}:</i>
@@ -87,44 +50,50 @@
     </form>
 </div>
 
+<div class="info-container">
+    <h1>Info</h1>
+</div>
+
 <div class="withdraws-container">
     <h1>Wypłaty z konta</h1>
-        <table>
-            <tr>
-                <th>Id</th>
-                <th>Status</th>
-                <th>Wypłacający</th>
-                <th>Kwota</th>
-                <th>Waluta</th>
-                <th>Odbiorca</th>
-                <th>Data</th>
-            </tr>
-            {% for transaction in withdraw_transactions %}
-                <tr>
-                <td><bold>{{transaction.transaction_id}}</bold></td>
-                {% if transaction.status == 0 %}
-                    <td><div class="status-success"><i class="fa-solid fa-circle fa-xs"></i>Gotowe</div></td>
-                {% elif transaction.status == 1 %}
-                    <td><div class="status-warning"><i class="fa-solid fa-circle fa-xs"></i>Oczekuje</div></td>
-                {% endif %}
-                <td><a>{{transaction.sender_id}}</a></td></td>
+    <div class="withdraws-wrapper">
+        <div class="collumn-name">Id</div>
 
+        <div class="collumn-name">Status</div>
 
-                <td><a style="color: red;">{{transaction.kwota}}</a></td>
+        <div class="collumn-name">Użytkownik</div>
 
-                <td><a>{{transaction.waluta}}</a></td>
+        <div class="collumn-name">Kwota</div>
 
-                {% if transaction.typ == 0 or 2 %}
-                <td class="title"><a>{{transaction.title}}</a></td>
-                {% else %}
-                <td></td>
-                {% endif %}
-                <td class="data"><a>{{transaction.data_transakcji}}</a></td>
-                </tr>
-            {% endfor %}
-        </table>
+        <div class="collumn-name">Waluta</div>
+
+        <div class="collumn-name">Odbiorca</div>
+
+        <div class="collumn-name">Data</div>
+
+        {% for transaction in withdraw_transactions %}
+            <div class="id">{{transaction.transaction_id}}</div>
+
+            {% if transaction.status == 0 %}
+                <div class="status-success"><i class="fa-solid fa-circle fa-xs"></i>Wypłacone</div>
+            {% elif transaction.status == 1 %}
+                <div class="status-warning"><i class="fa-solid fa-circle fa-xs"></i>Oczekuje</div>
+            {% endif %}
+
+            <div class="sender">{{transaction.sender_id}}</div>
+
+            <div class="ammount">{{transaction.kwota}}</div>
+
+            <div class="currency">{{transaction.waluta}}</div>
+
+            <div class="title">{{transaction.title}}</div>
+
+            <div class="date">{{transaction.data_transakcji}}</div>
+        {% endfor %}
     </div>
 </div>
+
+
 
 <!-- Dropdown jQuerry -->
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
@@ -218,18 +187,16 @@
     </div>
     {% endfor %}
 {% endif %}
-  
-<!-- Message Javascrip -->
  <script>
-    var message_ele = document.getElementById("message-container");
+    var message_element = document.getElementById("message-container");
     setTimeout(function(){ 
-        message_ele.style.display = "none"; 
-    }, 3000);
+        message_element.style.display = "none"; 
+    }, 5000);
 </script>
 
 <script>
     $(function(){         
-    $('.innerBar').animate({ width: "0%" }, 3000);
+    $('.innerBar').animate({ width: "0%" }, 5000);
     });
 </script>
 
