@@ -62,23 +62,25 @@
 
         <div class="collumn-name">Status</div>
 
-        <div class="collumn-name">Użytkownik</div>
+        <div class="collumn-name" id="sender">Użytkownik</div>
 
-        <div class="collumn-name">Kwota</div>
+        <div class="collumn-name" id="ammount">Kwota</div>
 
-        <div class="collumn-name">Waluta</div>
+        <div class="collumn-name" id="currency">Waluta</div>
 
         <div class="collumn-name" id="reciver">Odbiorca</div>
 
         <div class="collumn-name" id="date">Data</div>
 
+        <div class="collumn-name" id="info">Info</div>
+
         {% for transaction in withdraw_transactions %}
             <div class="id">{{transaction.transaction_id}}</div>
 
             {% if transaction.status == 0 %}
-            <a href="{% url "admin-mark-transaction" transaction.transaction_id %}" title="Zmień status na oczekujace"><div class="status-success"><i class="fa-solid fa-circle fa-xs"></i>Wypłacone</div></a>
+            <a href="{% url "admin-mark-transaction" transaction.transaction_id %}" title="Zmień status na oczekujace"><div class="status-success"><i class="fa-solid fa-circle fa-xs"></i><p></p></div></a>
             {% elif transaction.status == 1 %}
-            <a href="{% url "admin-mark-transaction" transaction.transaction_id %}" title="Zmień status na wypłacone"><div class="status-warning"><i class="fa-solid fa-circle fa-xs"></i>Oczekuje</div></a>
+            <a href="{% url "admin-mark-transaction" transaction.transaction_id %}" title="Zmień status na wypłacone"><div class="status-warning"><i class="fa-solid fa-circle fa-xs"></i><p></p></div></a>
             {% endif %}
 
             <div class="sender">{{transaction.sender_id}}</div>
@@ -90,20 +92,11 @@
             <div class="reciver">{{transaction.title}}</div>
 
             <div class="date">{{transaction.data_transakcji}}</div>
+
+            <div class="more-info"><a href="sex">Info</a></div>
         {% endfor %}
     </div>
 </div>
-<script>
-    document.addEventListener("DOMContentLoaded", function(event) { 
-        var scrollpos = localStorage.getItem('scrollpos');
-        if (scrollpos) window.scrollTo(0, scrollpos);
-    });
-
-    window.onbeforeunload = function(e) {
-        localStorage.setItem('scrollpos', window.scrollY);
-    };
-</script>
-
 
 <!-- Dropdown jQuerry -->
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
@@ -126,14 +119,6 @@
         
     });
 </script>
-
-<script>
-    $(document).ready(function() {
-        $('#id_waluta').select2();
-    });
-</script>
-
-
 
 {% if messages %}
     {% for message in messages %}
@@ -197,18 +182,5 @@
     </div>
     {% endfor %}
 {% endif %}
- <script>
-    var message_element = document.getElementById("message-container");
-    setTimeout(function(){ 
-        message_element.style.display = "none"; 
-    }, 5000);
-</script>
-
-<script>
-    $(function(){         
-    $('.innerBar').animate({ width: "0%" }, 5000);
-    });
-</script>
-
 
 {% endblock %}
