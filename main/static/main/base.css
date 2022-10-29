@@ -102,7 +102,7 @@ img{
   }
 }
 .animation{
-  animation: loadAnimation 0.8s;
+  animation: loadAnimation 0.4s;
 }
 
 /* Nav menu */
@@ -162,30 +162,6 @@ nav.menu .login a:active{
 .hamburger{
   display: none;
 }
-
-/* @keyframes changeLetter {
-  0% {
-    content: url("/static/main/images/x.svg");
-  }
-  50% {
-    color: white;
-  }
-  100% {
-    content: url("/static/main/images/List.svg");
-  }
-}
-
-#burgir::before{
-  content: url("/static/main/images/List.svg");
-  display: block;
-  animation: changeLetter 2s linear;
-}
-#burgir.active::before{
-  content: url("/static/main/images/x.svg");
-  display: block;
-  animation: changeLetter 1s linear;
-} */
-
 
 .burger-bars {
   display: inline-block;

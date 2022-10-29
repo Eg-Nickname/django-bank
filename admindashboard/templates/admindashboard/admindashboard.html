@@ -52,6 +52,7 @@
 
 <div class="info-container">
     <h1>Info</h1>
+    <p>{{selected_transaction.waluta}}</p>
 </div>
 
 <div class="withdraws-container">
@@ -67,17 +68,17 @@
 
         <div class="collumn-name">Waluta</div>
 
-        <div class="collumn-name">Odbiorca</div>
+        <div class="collumn-name" id="reciver">Odbiorca</div>
 
-        <div class="collumn-name">Data</div>
+        <div class="collumn-name" id="date">Data</div>
 
         {% for transaction in withdraw_transactions %}
             <div class="id">{{transaction.transaction_id}}</div>
 
             {% if transaction.status == 0 %}
-                <div class="status-success"><i class="fa-solid fa-circle fa-xs"></i>Wypłacone</div>
+            <a href="{% url "admin-mark-transaction" transaction.transaction_id %}" title="Zmień status na oczekujace"><div class="status-success"><i class="fa-solid fa-circle fa-xs"></i>Wypłacone</div></a>
             {% elif transaction.status == 1 %}
-                <div class="status-warning"><i class="fa-solid fa-circle fa-xs"></i>Oczekuje</div>
+            <a href="{% url "admin-mark-transaction" transaction.transaction_id %}" title="Zmień status na wypłacone"><div class="status-warning"><i class="fa-solid fa-circle fa-xs"></i>Oczekuje</div></a>
             {% endif %}
 
             <div class="sender">{{transaction.sender_id}}</div>
@@ -86,13 +87,22 @@
 
             <div class="currency">{{transaction.waluta}}</div>
 
-            <div class="title">{{transaction.title}}</div>
+            <div class="reciver">{{transaction.title}}</div>
 
             <div class="date">{{transaction.data_transakcji}}</div>
         {% endfor %}
     </div>
 </div>
+<script>
+    document.addEventListener("DOMContentLoaded", function(event) { 
+        var scrollpos = localStorage.getItem('scrollpos');
+        if (scrollpos) window.scrollTo(0, scrollpos);
+    });
 
+    window.onbeforeunload = function(e) {
+        localStorage.setItem('scrollpos', window.scrollY);
+    };
+</script>
 
 
 <!-- Dropdown jQuerry -->

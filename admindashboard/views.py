@@ -1,4 +1,3 @@
-from django.dispatch import receiver
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 
@@ -15,7 +14,7 @@ def admindashboard_viev(request):
     if not request.user.is_authenticated:
         return redirect("login")
     if not request.user.is_superuser:
-        return redirect("login")
+        return redirect("/")
 
     withdraw_transactions = Transaction.objects.filter(Q(typ = 2)).order_by('data_transakcji')
     payment_form = Payment()
@@ -56,4 +55,33 @@ def admindashboard_viev(request):
             messages.error(request, "Coś poszło nie tak 🤨")
     return render(request, 'admindashboard/admindashboard.html', context)
 
+def admindashboard_inspection_viev(request, id):
+    if not request.user.is_authenticated:
+        return redirect("login")
+    if not request.user.is_superuser:
+        return redirect("/")
+    
+    transaction = Transaction.objects.get(pk=id)
+    withdraw_transactions = Transaction.objects.filter(Q(typ = 2)).order_by('data_transakcji')
+    payment_form = Payment()
+    context = {
+            'withdraw_transactions' : reversed(withdraw_transactions),
+            'payment_form' : payment_form,
+            'selected_transaction' : transaction,
+    }
+    return render(request, 'admindashboard/admindashboard.html', context)
 
+
+def admindashboard_mark_transaction(request, id):
+    if not request.user.is_authenticated:
+        return redirect("login")
+    if not request.user.is_superuser:
+        return redirect("/")
+    
+    transaction = Transaction.objects.get(pk=id)
+    if transaction.status == 0:
+        transaction.status = 1
+    else:
+        transaction.status = 0
+    transaction.save()
+    return redirect("/admindashboard/")

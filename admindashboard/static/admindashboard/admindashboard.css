@@ -219,7 +219,7 @@ div.title{
     margin-right: 5px;
 }
 
-.status-warning{
+.status-warning, .status-warning a{
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -235,4 +235,24 @@ div.title{
 .status-warning i{
     margin-top: 0px;
     margin-right: 5px;
+}
+
+@media (max-width: 1050px){
+    .withdraws-wrapper{
+        grid-template-columns: minmax(0, min-content) 120px minmax(0, 1fr) minmax(0, min-content) minmax(0, min-content) minmax(0, 3fr);
+    }
+
+    .date, #date{
+        display: none;
+    }
+}
+
+@media (max-width: 920px){
+    .withdraws-wrapper{
+        grid-template-columns: minmax(0, min-content) 120px minmax(0, 1fr) minmax(0, min-content) minmax(0, min-content);
+    }
+
+    .reciver, #reciver{
+        display: none;
+    }
 }
