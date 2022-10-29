@@ -37,15 +37,16 @@
                 {% endif %}
             </ul>
 
-            {% if user.is_authenticated %}
             <ul class="flexBlock logowanie" id="bottom-ul">
+            {% if user.is_authenticated %}
                 <li class="login"><a href="/account/">Ustawienia</a></li>
                 <li class="login li-responsive"><a href="/logout/">Wyloguj się</a></li>
             {% else %}
                 <li class="login"><a href="/login/">Zaloguj się</a></li>
                 <li class="login"><a href="/register/">Zarejestruj się</a></li>
-            </ul>
             {% endif %}
+            </ul>
+            
         </div>
     </nav>
 
