@@ -293,6 +293,9 @@ div.title{
         justify-content: center;
         align-items: center;
     }
+    .status-success i, .status-warning i{
+        margin: 0;
+    }
 }
 
 
