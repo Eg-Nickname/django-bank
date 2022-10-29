@@ -163,6 +163,54 @@ nav.menu .login a:active{
   display: none;
 }
 
+/* @keyframes changeLetter {
+  0% {
+    content: url("/static/main/images/x.svg");
+  }
+  50% {
+    color: white;
+  }
+  100% {
+    content: url("/static/main/images/List.svg");
+  }
+}
+
+#burgir::before{
+  content: url("/static/main/images/List.svg");
+  display: block;
+  animation: changeLetter 2s linear;
+}
+#burgir.active::before{
+  content: url("/static/main/images/x.svg");
+  display: block;
+  animation: changeLetter 1s linear;
+} */
+
+
+.burger-bars {
+  display: inline-block;
+  cursor: pointer;
+}
+
+.bar1, .bar2, .bar3 {
+  width: 32px;
+  height: 4px;
+  background-color: #333;
+  margin: 4px 0;
+  transition: 0.3s;
+  border-radius: 4px;
+}
+
+.change .bar1 {
+  transform: translate(0, 8px) rotate(-45deg);
+}
+
+.change .bar2 {opacity: 0;}
+
+.change .bar3 {
+  transform: translate(0, -8px) rotate(45deg);
+}
+
 #top-ul, #bottom-ul{
   display: flex;
 }
@@ -176,15 +224,6 @@ nav.menu ul{
 
 .menu-visable{
   display: flex;
-}
-
-@-webkit-keyframes fadeIn {
-  from { opacity: 0; }
-    to { opacity: 1; }
-}
-@keyframes fadeIn {
-  from { opacity: 0; }
-    to { opacity: 1; }
 }
 
 @media (max-width: 960px){

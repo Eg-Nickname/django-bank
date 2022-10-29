@@ -61,7 +61,6 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'django_bank.urls'
-
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',

@@ -17,21 +17,15 @@
 <body>
     <nav class="menu">
         <div class="flexBlock ul-wrapper">
-            <div class="hamburger"><a href="/"><img src="{% static 'main/images/logo_bank.png' %}" alt="My image">
-                <a href="#"onclick="toogleMenu()" id="burger1"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
-                    <path fill-rule="evenodd" clip-rule="evenodd" d="M4 16C4 15.4477 4.44772 15 5 15H27C27.5523 15 28 15.4477 28 16C28 16.5523 27.5523 17 27 17H5C4.44772 17 4 16.5523 4 16Z" fill="black"/>
-                    <path fill-rule="evenodd" clip-rule="evenodd" d="M4 8C4 7.44772 4.44772 7 5 7H27C27.5523 7 28 7.44772 28 8C28 8.55228 27.5523 9 27 9H5C4.44772 9 4 8.55228 4 8Z" fill="black"/>
-                    <path fill-rule="evenodd" clip-rule="evenodd" d="M4 24C4 23.4477 4.44772 23 5 23H27C27.5523 23 28 23.4477 28 24C28 24.5523 27.5523 25 27 25H5C4.44772 25 4 24.5523 4 24Z" fill="black"/>
-                    </svg>
-                </a>
-
-                <a href="#"onclick="toogleMenu()" id="burger2" class="menu-toggle">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                        <path d="M18 6L6 18" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path d="M6 6L18 18" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </a>
+            <div class="hamburger">
+                <a href="/"><img src="{% static 'main/images/logo_bank.png' %}" alt="My image"></a>
+                <div class="burger-bars" onclick="toogleMenu(this)">
+                    <div class="bar1"></div>
+                    <div class="bar2"></div>
+                    <div class="bar3"></div>
+                </div>
             </div>
+
             <ul class="flexBlock" id="top-ul">
                 <li class="logo"><a href="/"><img src="{% static 'main/images/logo_bank.png' %}" alt="My image"></a></li>
                 <li class="li-nav"><a class="link" href="/">Strona główna</a></li>
@@ -56,20 +50,18 @@
     </nav>
 
     <script>
-        function toogleMenu()
+        function toogleMenu(burger)
         {
-            var x = document.getElementById("top-ul");
-            x.classList.toggle("menu-visable");
-            var y = document.getElementById("bottom-ul");
-            y.classList.toggle("menu-visable");
-
-            document.getElementById("burger1").classList.toggle("menu-toggle");
-            document.getElementById("burger2").classList.toggle("menu-toggle");
+            burger.classList.toggle("change");
+            var top_ul = document.getElementById("top-ul");
+            top_ul.classList.toggle("menu-visable");
+            var bottom_ul = document.getElementById("bottom-ul");
+            bottom_ul.classList.toggle("menu-visable");
         }
     </script>
 
     <div class="animation">
-        {% block content%} test {% endblock%}
+        {% block content%}{% endblock%}
     </div>
 
 </body>
