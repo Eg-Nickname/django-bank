@@ -17,18 +17,9 @@ body{
     grid-column-start: 1;
     grid-column-end: 2;
     grid-row-start: 1;
-
-    margin-left: 30px;
-    height: auto;
-    padding: 20px;
-    width: auto;
+    margin-left: 24px;
     display: flex;
-    /* justify-content: center; */
     align-items: center;
-    border: 1px solid var(--neutral-100);
-    background-color: var(--neutral-000);
-    border-radius: 8px;
-    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.08);
 }
 
 /* Link acting like button */
@@ -54,14 +45,6 @@ body{
     grid-column-end: 3;
     grid-row-start: 1;
     grid-row-end: 3;
-
-    padding: 20px;
-    width: auto;
-    height: auto;
-    border: 1px solid var(--neutral-100);
-    background-color: var(--neutral-000);
-    border-radius: 8px;
-    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.08);
 }
 
 /* Forms */
@@ -69,14 +52,7 @@ body{
     grid-column-start: 1;
     grid-column-end: 2;
     grid-row-start: 2;
-
-    margin-left: 30px;
-    padding: 20px;
-    width: auto;
-    border: 1px solid var(--neutral-100);
-    background-color: var(--neutral-000);
-    border-radius: 8px;
-    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.08);
+    margin-left: 24px;
 }
 
 h1{
@@ -170,14 +146,8 @@ option:hover{
     grid-column-start: 1;
     grid-column-end: end;
     grid-row-start: 3;
-    margin: 0 30px;
-    padding: 20px;
+    margin: 0 24px;
     max-width: 96vw;
-    border: 1px solid var(--neutral-100);
-    background-color: var(--neutral-000);
-    color: var(--neutral-600);
-    border-radius: 8px;
-    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.08);
 }
 .withdraws-wrapper{
     display: grid;
@@ -214,12 +184,13 @@ div.title{
     background-color: var(--success-bg);
     font-weight: 600;
 }
-.status-success i{
-    margin-top: 0px;
-    margin-right: 5px;
+.status-success:hover{
+    color: var(--success-border) !important;
+    border: 2px solid var(--success-border) !important;
+    transition: all 0.2s;
 }
 
-.status-warning, .status-warning a{
+.status-warning{
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -232,16 +203,22 @@ div.title{
     background-color: var(--warning-bg);
     font-weight: 600;
 }
-.status-warning i{
+.status-warning:hover{
+    color: var(--warning-border) !important;
+    border: 2px solid var(--warning-border) !important;
+    transition: all 0.2s;
+}
+
+.status-success i, .status-warning i{
     margin-top: 0px;
     margin-right: 5px;
 }
 
-.status-success p::before{
+.withdraws-wrapper .status-success p::before{
     content: "Wypłacone";
 }
 
-.status-warning p::before{
+.withdraws-wrapper .status-warning p::before{
     content: "Oczekuje";
 }
 
@@ -280,24 +257,27 @@ div.title{
         display: flex;
     }
 
-    .status-success p::before{
+    .withdraws-wrapper .status-success p::before{
         content: "";
     }
 
-    .status-warning p::before{
+    .withdraws-wrapper .status-warning p::before{
         content: "";
     }
-    .status-success, .status-warning{
+    .withdraws-wrapper .status-success, .status-warning{
         display: flex;
         width: 16px;
         justify-content: center;
         align-items: center;
     }
-    .status-success i, .status-warning i{
+    .withdraws-wrapper .status-success i, .status-warning i{
         margin: 0;
     }
 }
 
+.selected-transaction-container{
+    display: none;
+}
 
 @media (max-width: 920px){
     .content{
@@ -309,22 +289,40 @@ div.title{
     }
     
     .link-container{
-        grid-row-start: 1;
-        margin: 0 30px;
+        grid-row: auto;
+        margin: 0 16px;
     }
     .addmoney-container{
-        grid-row-start: 2;
-        margin: 0 30px;
+        grid-row: auto;
+        margin: 0 16px;
     }
     .info-container{
-        grid-row-start: 3;
+        grid-row: auto / span 1;
         grid-column-start: 1;
         grid-column-end: 1;
-        margin: 0 30px;
+        margin: 0 16px;
     }
-    .withdraws-container{
-        grid-row-start: 4;
+    .selected-transaction-container{
+        grid-row: auto;
+        display: grid;
         grid-column-start: 1;
         grid-column-end: 1;
+        margin: 0 16px;
+
+        grid-template-columns: minmax(0, 1fr);
+    }
+    .selected-transaction-container div{
+        padding-top: 10px;
+        overflow-wrap: break-word !important;
+    }
+    .selected-transaction-container #sel-trans-title{
+        max-width: 80vw;
+    }
+
+    .withdraws-container{
+        grid-row: auto;
+        grid-column-start: 1;
+        grid-column-end: 1;
+        margin: 0 16px;
     }
 }

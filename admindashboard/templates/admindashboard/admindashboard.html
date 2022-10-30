@@ -55,6 +55,28 @@
     <p>{{selected_transaction.waluta}}</p>
 </div>
 
+{% if selected_transaction %}
+    <div class="selected-transaction-container">
+        <h1>Wybrana tranzakcja Id = {{selected_transaction.transaction_id}}</h1>
+
+        {% if selected_transaction.status == 0 %}
+        <a href="{% url "admin-mark-transaction" selected_transaction.transaction_id %}" title="Zmień status na oczekujace"><div class="status-success"><i class="fa-solid fa-circle fa-xs"></i><p>Wypłacone</p></div></a>
+        {% elif selected_transaction.status == 1 %}
+        <a href="{% url "admin-mark-transaction" selected_transaction.transaction_id %}" title="Zmień status na wypłacone"><div class="status-warning"><i class="fa-solid fa-circle fa-xs"></i><p>Oczeuje</p></div></a>
+        {% endif %}
+
+        <div><h4>Nazwa użytkownika</h4>{{selected_transaction.sender_id}}</div>
+
+        <div><h4>Kwota</h4>{{selected_transaction.kwota}}</div>
+
+        <div ><h4>Waluta</h4>{{selected_transaction.waluta}}</div>
+
+        <div id="sel-trans-title"><h4>Odbiorca</h4><p>{{selected_transaction.title}}</p></div>
+
+        <div><h4>Data</h4>{{selected_transaction.data_transakcji}}</div>
+    </div>
+{% endif %}
+
 <div class="withdraws-container">
     <h1>Wypłaty z konta</h1>
     <div class="withdraws-wrapper">
@@ -93,7 +115,7 @@
 
             <div class="date">{{transaction.data_transakcji}}</div>
 
-            <div class="more-info"><a href="info">Info</a></div>
+            <div class="more-info"><a href="{% url "admin-inspect-transaction" transaction.transaction_id %}">Info</a></div>
         {% endfor %}
     </div>
 </div>

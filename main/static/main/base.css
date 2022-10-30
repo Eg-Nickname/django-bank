@@ -89,6 +89,16 @@ img{
 	white-space: nowrap;
 }
 
+[class$="container"]{
+  padding: 20px;
+  width: auto;
+  height: auto;
+  border: 1px solid var(--neutral-100);
+  background-color: var(--neutral-000);
+  border-radius: 8px;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.08);
+}
+
 @keyframes loadAnimation {
   from{
     opacity: 0;
