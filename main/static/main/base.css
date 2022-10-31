@@ -267,7 +267,7 @@ form i{
   /* margin: 10px; */
   font-weight: 500;
 }
-input{
+input, button{
   box-sizing: border-box;
   display: flex;
   flex-direction: row;
@@ -297,7 +297,7 @@ input[type=number]:focus{
   border: 2px solid var(--primary-focus) !important;
 }
 
-.link-button, input[type=submit]{
+.link-button, input[type=submit], button{
   color: var(--neutral-000);
   background-color: var(--primary-main);
   padding: 10px;
@@ -308,12 +308,14 @@ input[type=number]:focus{
   align-items: center;
 }
 
-.link-button:hover, input[type=submit]:hover{
-  background-color: var(--primary-hover);
+.link-button:hover, input[type=submit]:hover, button:hover{
+  background-color: var(--primary-border);
+  border-color: var(--primary-bg);
 }
 
-.link-button:active, input[type=submit]:active{
+.link-button:active, input[type=submit]:active, button:active{
   background-color: var(--primary-pressed);
+  border-color: var(--primary-bg);
 }
 
 

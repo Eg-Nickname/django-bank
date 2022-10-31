@@ -65,5 +65,72 @@
         {% block content%}{% endblock%}
     </div>
 
+{% if messages %}
+    {% for message in messages %}
+    <div class="message message-{{ message.tags }}" id="message-container">
+            <div class="msg-top">
+                {% if message.tags == "error" %}
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <g clip-path="url(#clip0_19_940)">
+                    <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="#BA1717" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M12 8V12" stroke="#BA1717" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M12 16H12.01" stroke="#BA1717" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </g>
+                    <defs>
+                    <clipPath id="clip0_19_940">
+                    <rect width="24" height="24" fill="white"/>
+                    </clipPath>
+                    </defs>
+                </svg>
+                <a class="msg-title">Błąd!</a>
+                {% elif message.tags == "warning" %}
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M12 9C12.4142 9 12.75 9.33579 12.75 9.75V13.5C12.75 13.9142 12.4142 14.25 12 14.25C11.5858 14.25 11.25 13.9142 11.25 13.5V9.75C11.25 9.33579 11.5858 9 12 9Z" fill="#E9C400"/>
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M10.876 2.55208C11.2175 2.35405 11.6052 2.24976 12 2.24976C12.3948 2.24976 12.7825 2.35405 13.124 2.55208C13.4649 2.74978 13.7477 3.03389 13.9437 3.37573C13.944 3.37631 13.9444 3.37689 13.9447 3.37747L22.1933 17.625C22.3904 17.9664 22.4944 18.3537 22.4947 18.748C22.4951 19.1423 22.3918 19.5298 22.1953 19.8716C21.9987 20.2134 21.7158 20.4975 21.3749 20.6956C21.0339 20.8936 20.6469 20.9986 20.2526 21L20.25 21H3.75L3.74736 21C3.35307 20.9986 2.96607 20.8936 2.62513 20.6956C2.28419 20.4975 2.00128 20.2134 1.80474 19.8716C1.6082 19.5298 1.50493 19.1423 1.50528 18.748C1.50563 18.3537 1.60958 17.9664 1.80673 17.625L10.0553 3.37747C10.0556 3.37689 10.056 3.37631 10.0563 3.37573C10.2523 3.03388 10.5351 2.74978 10.876 2.55208ZM10.7062 3.74999L11.3553 4.12577L3.10576 18.375C3.10571 18.3751 3.10582 18.3749 3.10576 18.375C3.04016 18.4887 3.0054 18.618 3.00528 18.7493C3.00516 18.8808 3.03959 19.0099 3.1051 19.1239C3.17061 19.2378 3.26492 19.3325 3.37856 19.3985C3.49192 19.4644 3.62054 19.4994 3.75162 19.5H20.2484C20.3795 19.4994 20.5081 19.4644 20.6214 19.3985C20.7351 19.3325 20.8294 19.2378 20.8949 19.1239C20.9604 19.0099 20.9948 18.8808 20.9947 18.7493C20.9946 18.6181 20.96 18.4892 20.8945 18.3754C20.8944 18.3753 20.8946 18.3756 20.8945 18.3754L12.6428 4.12252C12.578 4.00927 12.4844 3.91515 12.3715 3.84969C12.2587 3.78423 12.1305 3.74976 12 3.74976C11.8695 3.74976 11.7413 3.78423 11.6285 3.84969C11.5156 3.91515 11.422 4.00926 11.3572 4.12252L10.7062 3.74999Z" fill="#E9C400"/>
+                        <path d="M12 18C12.6213 18 13.125 17.4963 13.125 16.875C13.125 16.2537 12.6213 15.75 12 15.75C11.3787 15.75 10.875 16.2537 10.875 16.875C10.875 17.4963 11.3787 18 12 18Z" fill="#E9C400"/>
+                    </svg>
+                    <a class="msg-title">Ostrzeżenie!</a>
+                {% elif message.tags == "success" %}
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M16.6677 9.2323C16.9536 9.532 16.9424 10.0067 16.6427 10.2927L11.1396 15.5427C10.8496 15.8193 10.3934 15.8191 10.1037 15.5422L7.35684 12.9172C7.05738 12.631 7.0466 12.1563 7.33278 11.8568C7.61895 11.5574 8.0937 11.5466 8.39317 11.8328L10.6223 13.963L15.6073 9.20734C15.907 8.92142 16.3817 8.93259 16.6677 9.2323Z" fill="#03781D"/>
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M12 3.75C7.44365 3.75 3.75 7.44365 3.75 12C3.75 16.5563 7.44365 20.25 12 20.25C16.5563 20.25 20.25 16.5563 20.25 12C20.25 7.44365 16.5563 3.75 12 3.75ZM2.25 12C2.25 6.61522 6.61522 2.25 12 2.25C17.3848 2.25 21.75 6.61522 21.75 12C21.75 17.3848 17.3848 21.75 12 21.75C6.61522 21.75 2.25 17.3848 2.25 12Z" fill="#03781D"/>
+                    </svg>
+                    <a class="msg-title">Sukcess!</a>
+                {% elif message.tags == "info" %}
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <g clip-path="url(#clip0_19_967)">
+                    <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="#006FD5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M12 16V12" stroke="#006FD5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M12 8H12.01" stroke="#006FD5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </g>
+                    <defs>
+                    <clipPath id="clip0_19_967">
+                    <rect width="24" height="24" fill="white"/>
+                    </clipPath>
+                    </defs>
+                </svg>
+                <a class="msg-title">Informacja</a>
+                {% endif %}
+
+                <a href="" class="del-msg">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28" fill="none">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M22.4937 5.50628C22.8354 5.84799 22.8354 6.40201 22.4937 6.74372L6.74372 22.4937C6.40201 22.8354 5.84799 22.8354 5.50628 22.4937C5.16457 22.152 5.16457 21.598 5.50628 21.2563L21.2563 5.50628C21.598 5.16457 22.152 5.16457 22.4937 5.50628Z" fill="#3F3F3F"/>
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M5.50628 5.50628C5.84799 5.16457 6.40201 5.16457 6.74372 5.50628L22.4937 21.2563C22.8354 21.598 22.8354 22.152 22.4937 22.4937C22.152 22.8354 21.598 22.8354 21.2563 22.4937L5.50628 6.74372C5.16457 6.40201 5.16457 5.84799 5.50628 5.50628Z" fill="#3F3F3F"/>
+                    </svg>
+                </a>
+            </div>
+
+            <div class="msg-text">{{ message }}</div>
+    </div>
+    {% endfor %}
+{% endif %}
+
+<script>
+    // Messages
+    var message_element = document.getElementById("message-container");
+    setTimeout(function(){ 
+        message_element.style.display = "none"; 
+    }, 5000);
+</script>
 </body>
 </html>
