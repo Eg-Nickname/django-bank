@@ -257,20 +257,17 @@ div.title{
         display: flex;
     }
 
-    .withdraws-wrapper .status-success p::before{
+    .withdraws-wrapper .status-success p::before, .withdraws-wrapper .status-warning p::before{
         content: "";
     }
 
-    .withdraws-wrapper .status-warning p::before{
-        content: "";
-    }
-    .withdraws-wrapper .status-success, .status-warning{
+    .withdraws-wrapper .status-success, .withdraws-wrapper .status-warning{
         display: flex;
         width: 16px;
         justify-content: center;
         align-items: center;
     }
-    .withdraws-wrapper .status-success i, .status-warning i{
+    .withdraws-wrapper .status-success i, .withdraws-wrapper .status-warning i{
         margin: 0;
     }
 }

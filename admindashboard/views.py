@@ -84,4 +84,4 @@ def admindashboard_mark_transaction(request, id):
     else:
         transaction.status = 0
     transaction.save()
-    return redirect("/admindashboard/")
+    return redirect(request.META.get('HTTP_REFERER'))
