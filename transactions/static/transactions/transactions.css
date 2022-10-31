@@ -1,44 +1,6 @@
 body{
     overflow-x: hidden;
 }
-.content{
-    position: absolute;
-
-
-    width: 100%;
-    height: auto;
-}
-
-.div-menu{
-   
-}
-/* Menu Ustawienia */
-.logowanie{
-    font-weight: bold;
-    color: whitesmoke;
-    height: 40px;
-    margin-right: 40px;
-}
-
-.logowanie a{
-    padding: 10px;
-    border:2px solid #7c63e0;
-    background: #7c63e0;
-    border-radius: 30px;
-}
-.logowanie a:hover{
-    color: #7c63e0;
-}
-.logowanie a:hover{
-    border: 3px solid #7c63e0;
-    background-color: white;
-    transition-duration: 250ms;
-}
-.logowanie li:hover{
-    transition-duration: 250ms;
-}
-
-
 
 /* Okno przelewu */
 .popup .overlay{
@@ -148,146 +110,47 @@ body{
     margin-top: 10px;
     font-weight: 500;
 }
-
-
-.buton-przelew{
-    width: 150px;
-    height: 49px;
-    outline: none;
-    border: none;
-    border-radius:  14px;
-    background-color: #7c63e0;
-    color: white;
-    text-transform: uppercase;
-    font-weight: 600;
-    margin: 10px 0;
-    transition: background-color 0.5s;
-    cursor: pointer;
-}
-.buton-przelew i{
-    margin-right: 7px;
-}
-.buton-przelew:hover{
-    background-color: white;
-    color: #7c63e0;
-    border: 2px solid #7c63e0;
-}
 .dodaj-srodki{
     margin-left: 12px;
 }
 
-/* Message Style */
-.message{
-    font-size: 18px;
-    color: white;
-    font-weight: 700;
-    text-align: center;
-    width: 380px;
-    height: auto;
-    position: fixed;
-    top: 5%;
-    left: 50%;
-    transform: translate(-50%, -10%) scale(1);
-    background-color: #b19dec;
-    border-radius: 15px;
-    border: solid 3px #7c63e0;
-    padding-top: 10px;
+.content{
+    display: grid;
+    grid-template-columns: minmax(0, 512px) minmax(0, 1fr);
+    grid-template-rows: min-content;
+    row-gap: 24px;
+    column-gap: 24px;
 }
-.message p {
-    margin-bottom: 10px;
-}
-.del-msg{
-    position: absolute;
-    right: 8px;
-    top: 8px;
-    width: 20px;
-    height: 20px;
-    color: #fff;
-    font-size: 25px;
-    font-weight: 600;
-    line-height: 30px;
-    text-align: center;
-    cursor: pointer;
-}
-
-/* Progress bar */
-.innerBar {
-    background: #906ee6;
-    height: 8px;
-    width: 100%;
- }
- 
- .outerContainer {
-    width: 340px;
-    margin: 5px 20px;
-    height: 8px;
-    border-radius: 5px;
-    overflow: hidden;
-    background: #d6cef4;
- }
 
 
 /* Informacje */
 .info-container{
-    max-width: 1580px;
-    height: auto;
-    background: #FFF;
-    margin: 0 auto;
-    margin-bottom: 40px;
-    justify-content: space-between;
-    display: flex;
+    margin-left: 32px;
+    grid-column-start: 1;
+    grid-column-end: end;
+    grid-row-start: 1;
 }
-.informacje{
-    width: auto;
-    max-width: 40%;
-    min-width: 500px;
-    height: auto;
-    background: #FFF;
-    margin-bottom: 40px;
-    padding: 40px;
-
-    border-radius: 20px;
-    border: 5px solid #703cf3;
-    display: inline-block;
-}
-.informacje .informacje-inner-container{
+.info-inner-container{
     display: flex;
-    justify-content: space-between;
+    display: flex;
+    justify-content: left;
+    align-items: center;
     padding: 20px;
 }
-.waluta-kwota{
-    width: 80%;
+.currency-ammount{
+    width: auto;
     line-height: 40px;
+    overflow-wrap: normal;
+}
+.currency-flag{
+    width: 60px !important;
+    margin-right: 10px;
 }
 
 .country-flag{
     height: 40px;
     max-width: 60px;
     width: auto;
-}
-.nowy-przelew{
-    font-size: 18px;
-    width: 200px;
-}
-.nowy-przelew i{
-    font-size: 18px;
-    font-weight: 9000;
-    margin-right: 10px;
-}
-
-.button-wyplata{
-    font-size: 18px;
-    width: 250px;
-    height: 49px;
-}
-.button-wyplata i{
-    font-size: 18px;
-    margin-right: 10px;
-}
-
-.img-money-transfer{
-    width: 55%;
-    height: auto;
 }
 
 /* Filter */
@@ -317,152 +180,132 @@ body{
     width: 50px;
     height: 26px;
     margin-bottom: 15px;
-  }
-  
-  .switch input {
+}
+
+.switch input {
     opacity: 0;
     width: 0;
     height: 0;
-  }
-  
-  .slider {
+}
+
+.slider {
     position: absolute;
     cursor: pointer;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: #ccc;
+    background-color: var(--neutral-200);
     -webkit-transition: .4s;
     transition: .4s;
-  }
-  
-  .slider:before {
+}
+
+.slider:before {
     position: absolute;
     content: "";
     height: 18px;
     width: 18px;
     left: 4px;
     bottom: 4px;
-    background-color: white;
+    background-color: var(--neutral-000);
     -webkit-transition: .4s;
     transition: .4s;
-  }
-  
-  input:checked + .slider {
-    background-color: #703cf3;
-  }
-  
-  input:focus + .slider {
-    box-shadow: 0 0 1px #703cf3;
-  }
-  
-  input:checked + .slider:before {
+}
+
+input:checked + .slider {
+    background-color: var(--primary-main);
+}
+
+input:focus + .slider {
+    box-shadow: 0 0 1px var(--primary-hover);
+}
+
+input:checked + .slider:before {
     -webkit-transform: translateX(20px);
     -ms-transform: translateX(20px);
     transform: translateX(20px);
-  }
-  
-  .slider.round {
+}
+
+.slider.round {
     border-radius: 34px;
-  }
-  
-  .slider.round:before {
+}
+
+.slider.round:before {
     border-radius: 50%;
-  }
-  
- /* Transakcje */
-.transactions{
+}
 
-    max-width: 1500px;
-    height: auto;
-    max-height: 70vh;
-    background: #FFF;
-    margin: 0 auto;
 
-    margin-bottom: 40px;
-    padding: 40px;
-    overflow-x: hidden;
-    overflow-y: auto;
-    border-radius: 20px;
-    border: 5px solid  #703cf3;
+/* Transactions */
+.transactions-container{
+    grid-row-start: 3;
+    grid-row-end: end;
+    grid-column-start: 1;
+    grid-column-end: end;
+    margin: 0 32px;
 }
-.transactions h1{
-    width: 300px;
-    margin-top: 0px;
+.transactions-wrapper{
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr) 60px minmax(0, 2fr) minmax(0, 1fr);
+    grid-auto-rows: minmax(50px auto);
+    row-gap: 16px;
+    column-gap: 16px;
 }
-.transactions table{
-    justify-content: space-between;
-    width: 100%;
-    height: auto;
+
+.transactions-wrapper .collumn-name{
+    font-size: 18px;
+    color: var(--neutral-700);
+    font-weight: 600;
+    display: flex;
+    justify-content: center;
 }
-table, td, th{
-    border: 2px solid #d6cef4;  
-    border-collapse: collapse;
-}
-td{
-    max-width: 300px;
+
+.transactions-wrapper div{
     overflow-wrap: break-word;
 }
-table{
-    margin: 0 !important;
-}
 
-td{
-    padding: 5px 10px 5px;
-}
-
-.transactions a{
-    color: black;
-}
-bold{
-    font-weight: 600;
-}
-
-.popup-inspect{
-    min-width: 250px;
-}
-
-@media (max-width: 610px) {
-    .informacje{
-        min-width: 100px;
-        padding: 10px !important;
-    }
-    .informacje .informacje-inner-container{
-        padding: 5px !important;
-    }
-}
-@media (max-width: 1500px) {
-td.data{
+.transactions-wrapper .more-info, .transactions-wrapper #more-info{
     display: none;
 }
-.img-money-transfer{
-    display: none;
+.transactions-wrapper .currency{
+    display: flex;
+    justify-content: center;
 }
 
+@media (max-width: 1100px){
+    .transactions-container{
+        margin: 0 16px;
+    }
 }
 
-@media (max-width: 1430px) {
-    td.title{
-        display: none;
-    }    
-}
-
-@media (max-width: 1100px) {
-    td.to{
-        display: none;
-    }    
-}
-
-@media (max-width: 777px) {
-    td.from{
-        display: none;
-    }    
-}
-
-@media (max-width: 450px) {
-    .informacje h1{
-        display: none;
+@media (max-width: 950px){
+    .transactions-wrapper{
+        grid-template-columns: 100px minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr) 60px minmax(0, 1fr);
     }
 
+    .transactions-wrapper .title, .transactions-wrapper #title{
+        display: none;
+    }
+    .transactions-wrapper .more-info, .transactions-wrapper #more-info{
+        display: flex;
+    }
+}
+
+@media (max-width: 800px){
+    .transactions-wrapper{
+        grid-template-columns: 100px minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr) 60px;
+    }
+
+    .transactions-wrapper .date, .transactions-wrapper #date{
+        display: none;
+    }
+}
+
+@media (max-width: 680px){
+    .transactions-wrapper{
+        grid-template-columns: 100px minmax(0, 1fr) 60px;
+    }
+
+    .transactions-wrapper .sender, .transactions-wrapper #sender, .transactions-wrapper .reciver, .transactions-wrapper #reciver{
+        display: none;
+    }
 }

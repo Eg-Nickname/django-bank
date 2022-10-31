@@ -21,6 +21,6 @@ class Transaction(models.Model):
     # 2 - Wypłata z konta
     # 3 - Wymiana walut
     title               = models.CharField(verbose_name="Tytuł przelewu", max_length=100, unique=False, default="Tytuł Przelewu")
-
+    status              = models.PositiveIntegerField(verbose_name="Status transakcji", default=0)
     def __str__(self):
         return str(self.transaction_id)

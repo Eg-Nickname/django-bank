@@ -5,8 +5,9 @@ from django.db.models import Q
 
 from transactions.models import Transaction
 from transactions.forms import NewTransaction, Withdraw
-
 from transactions.filters import TransacionFilter
+
+from exchange.models import ExchangeListing
 
 from django.contrib import messages
 
@@ -103,6 +104,10 @@ def transactions_inspection_viev(request, id):
     else:
 
         transaction = Transaction.objects.get(pk=id)
+        if transaction.sender_id == request.user or transaction.reciver_id == request.user:
+            transaction = transaction
+        else:
+            return redirect("/saldo/")
         sent_transactions = Transaction.objects.filter(Q(sender_id  = request.user.id) | Q(reciver_id = request.user.id)).order_by('-data_transakcji')
         transactions_filter = TransacionFilter(request.GET, queryset=sent_transactions)
         sent_transactions = transactions_filter

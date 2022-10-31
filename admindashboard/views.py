@@ -1,4 +1,3 @@
-from django.dispatch import receiver
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 
@@ -15,7 +14,7 @@ def admindashboard_viev(request):
     if not request.user.is_authenticated:
         return redirect("login")
     if not request.user.is_superuser:
-        return redirect("login")
+        return redirect("/")
 
     withdraw_transactions = Transaction.objects.filter(Q(typ = 2)).order_by('data_transakcji')
     payment_form = Payment()
@@ -31,7 +30,7 @@ def admindashboard_viev(request):
         reciver_id = Account.objects.all().filter(username__icontains=term)
         return JsonResponse(list(reciver_id.values()), safe=False)    
 
-        # Wypłacanie  
+    # Wypłacanie  
     if request.POST and 'payment' in request.POST:
         payment_form = Payment(request.POST)
  
@@ -43,16 +42,46 @@ def admindashboard_viev(request):
             payment.reciver_id = reciver
             payment.typ = 1
             if payment.kwota == 0:
-                    messages.info(request, 'Kwota wypłaty musi być większa niż 0')
+                    messages.warning(request, 'Kwota wpłaty musi być większa niż 0')
             else:
                 setattr(reciver, payment.waluta.lower(), getattr(reciver, payment.waluta.lower()) + payment.kwota)
                 
-                messages.info(request, f"Pomyślnie dodano {payment.kwota} {payment.waluta} użytkownikowi {payment.reciver_id.username}")
+                messages.success(request, f"Pomyślnie dodano {payment.kwota} {payment.waluta} użytkownikowi {payment.reciver_id.username}")
                 payment = payment.save()
             
                 reciver.save()
                 return redirect('admindashboard')
+        else:
+            messages.error(request, "Coś poszło nie tak 🤨")
+    return render(request, 'admindashboard/admindashboard.html', context)
 
+def admindashboard_inspection_viev(request, id):
+    if not request.user.is_authenticated:
+        return redirect("login")
+    if not request.user.is_superuser:
+        return redirect("/")
+    
+    transaction = Transaction.objects.get(pk=id)
+    withdraw_transactions = Transaction.objects.filter(Q(typ = 2)).order_by('data_transakcji')
+    payment_form = Payment()
+    context = {
+            'withdraw_transactions' : reversed(withdraw_transactions),
+            'payment_form' : payment_form,
+            'selected_transaction' : transaction,
+    }
     return render(request, 'admindashboard/admindashboard.html', context)
 
 
+def admindashboard_mark_transaction(request, id):
+    if not request.user.is_authenticated:
+        return redirect("login")
+    if not request.user.is_superuser:
+        return redirect("/")
+    
+    transaction = Transaction.objects.get(pk=id)
+    if transaction.status == 0:
+        transaction.status = 1
+    else:
+        transaction.status = 0
+    transaction.save()
+    return redirect(request.META.get('HTTP_REFERER'))

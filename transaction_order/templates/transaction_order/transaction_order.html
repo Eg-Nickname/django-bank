@@ -86,7 +86,7 @@
 </div>
 </div>
 
-<div class="transactions">
+<div class="transaction-orders-container">
     <h1>Twoje zlecenia transakcji</h1>
     <div>          
       <h3>Opcje filtrowania</h3> 
@@ -114,19 +114,31 @@
         </form>
       </div>
 
-    <table>
+    <div class="transaction-orders-wrapper">
+        <div class="collumn-name" id="more-info">Odbiorca</div>
+
+        <div class="collumn-name" id="ammount">Kwota</div>
+
+        <div class="collumn-name" id="currency">Waluta</div>
+
+        <div class="collumn-name" id="delay">Odstęp czasowy</div>
+
+        <div class="collumn-name" id="title">Tytuł przelewu</div>
+
+        <div class="collumn-name" id="date">Ostatnia tranzakcja</div>
+
+        <div class="collumn-name"></div>
+
         {% for transaction_order in transaction_orders.qs %}
-        <tr>
-            <td><bold>Do: </bold>{{transaction_order.reciver_fk}}</td>
-            <td>{{transaction_order.amount}}</td>
-            <td>{{transaction_order.waluta}}</td>
-            <td>{{transaction_order.transaction_delay}} dni</td>
-            <td>{{transaction_order.title}}</td>
-            <td>{{transaction_order.last_transaction}}</td>
-            <td><a href="{% url "remove_zlecenia_transakcji" transaction_order.transaction_order_id %}" class="bnt-del" style="color: red;"><bold>Usuń zlecenie transakcji</bold></a></td>
-        </tr>
+            <div>{{transaction_order.reciver_fk}}</div>
+            <div>{{transaction_order.amount}}</div>
+            <div class="currency">{{transaction_order.waluta}}</div>
+            <div class="delay">{{transaction_order.transaction_delay}} dni</div>
+            <div class="title">{{transaction_order.title}}</div>
+            <div class="date">{{transaction_order.last_transaction}}</div>
+            <div class="del"><a href="{% url "remove_zlecenia_transakcji" transaction_order.transaction_order_id %}" class="link-button button-del">Usuń zlecenie transakcji</a></div>
         {% endfor %}
-    </table>
+    </div>
 
     </div>
 </div>
