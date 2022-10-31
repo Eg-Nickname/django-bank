@@ -43,23 +43,6 @@
     border: 1px solid #aaa;
     border-radius: 4px;
 }
-.button-del{
-    color: var(--neutral-000);
-    background-color: var(--danger-main);
-    transition: all 0.4s ease-in;
-}
-
-.button-del:hover{
-    background-color: var(--danger-border);
-    border-color: var(--danger-bg);
-    color: var(--danger-pressed);
-    font-weight: 600;
-}
-
-.button-del:active{
-    background-color: var(--danger-pressed);
-    border-color: var(--danger-bg);
-}
 
 @media (max-width: 700px){
     .content{
