@@ -52,6 +52,7 @@ urlpatterns = [
     path('register/', registration_viev, name="register"),
     path('logout/', logout_viev, name="logout"),
     path('login/', login_viev, name="login"),
+
     path('account/', account_viev, name="account"),
     path('account/change_password', change_password, name="change_password"),
 
@@ -61,11 +62,13 @@ urlpatterns = [
     path('wymiana_walut/', exchange_viev, name="exchange"),
     path('removelisting/<int:id>', remove_lising_viev, name="remove-listing"),
     path('wymiana_walut/<int:id>', exchange_money_viev, name="exchange-money"),
-
+    
     path('admindashboard/', admindashboard_viev, name="admindashboard"),
     path('admindashboard/inspect/<int:id>', admindashboard_inspection_viev, name="admin-inspect-transaction"),
     path('admindashboard/mark/<int:id>', admindashboard_mark_transaction, name="admin-mark-transaction"),
 
     path('zlecenia_transakcji/', transaction_order_viev, name="zlecenia_transakcji"),
     path('zlecenia_transakcji/<int:id>', remove_transaction_order_viev, name="remove_zlecenia_transakcji"),
+    
+    path('api/', include('transactions_api.urls')),
 ]

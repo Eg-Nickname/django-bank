@@ -27,6 +27,12 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['192.168.0.10', '127.0.0.1', 'localhost', '193.42.240.128']
 
+# Rest framework permissions
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ]
+}
 
 # Application definition
 
@@ -40,6 +46,7 @@ INSTALLED_APPS = [
 
     #External apps
     'django_filters',
+    'rest_framework',
 
     #My apps
     'main.apps.MainConfig',
@@ -48,6 +55,7 @@ INSTALLED_APPS = [
     'exchange.apps.ExchangeConfig',
     'admindashboard.apps.AdmindashboardConfig',
     'transaction_order.apps.TransactionOrderConfig',
+    'transactions_api.apps.TransactionsApiConfig',
 ]
 
 MIDDLEWARE = [
